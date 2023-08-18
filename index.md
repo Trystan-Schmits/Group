@@ -3,9 +3,9 @@ layout: default
 title: Student Blog
 ---
 
-## Luna's Page
 
-Go to my [Github account](https://github.com/lunaiwa) !!
+## Build you Home Page here 
+This is about your journey. Start now!!!
 
 ## Overview of Hacks, Study and Tangibles
 Blogging in GitHub pages is a way to learn and code at the same time. 
