@@ -9,7 +9,7 @@ courses: { csse: {week: 0}, csp: {week: 0, categories: [4.A]}, csa: {week: 0} }
 categories: [C1.4]
 ---
 
-### PBL Sprint 0 / Week 0
+### PBL Unit 1 / Week 0
 Learning outcome.  Installing Tools and showing usage of VSCode.
 - Wednesday - Pick pair share partner, Pick crossover pair, Establish team of four.  Spend some time talking and getting to know each other, particularly with Computer Science experience and goals.  You should be matched with someone that has similar experience.
 - Thursday - Setup Tools on laptop and/or Cloud Computer.
