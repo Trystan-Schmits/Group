@@ -1,6 +1,6 @@
 ---
 toc: true
-comments: true
+comments: false
 layout: post
 title: More Detail Plan
 description: Example Plan!!! Analyze hacks and plan.
