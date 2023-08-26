@@ -25,7 +25,7 @@ default: server
 	@# tail and awk work together to extract Jekyll regeneration messages
 	@# When a _notebook is detected in the log, call make convert in the background
 	@# Note: We use the "if ($$0 ~ /_notebooks\/.*\.ipynb/) { system(\"make convert &\") }" to call make convert
-	@(tail -f $(LOG_FILE) | awk '/Server address: http:\/\/0.0.0.0:$(PORT)\/$(REPO_NAME)\// { serverReady=1 } \
+	@(tail -f $(LOG_FILE) | awk '/Server address: http:\/\/127.0.0.1:$(PORT)\/$(REPO_NAME)\// { serverReady=1 } \
 	serverReady && /^ *Regenerating:/ { regenerate=1 } \
 	regenerate { \
 		if (/^[[:blank:]]*$$/) { regenerate=0 } \
@@ -56,7 +56,7 @@ default: server
 # Start the local web server
 server: stop convert
 	@echo "Starting server..."
-	@@nohup bundle exec jekyll serve -H 0.0.0.0 -P $(PORT) > $(LOG_FILE) 2>&1 & \
+	@@nohup bundle exec jekyll serve -H 127.0.0.1 -P $(PORT) > $(LOG_FILE) 2>&1 & \
 		PID=$$!; \
 		echo "Server PID: $$PID"
 	@@until [ -f $(LOG_FILE) ]; do sleep 1; done

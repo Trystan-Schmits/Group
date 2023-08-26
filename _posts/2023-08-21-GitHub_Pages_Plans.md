@@ -2,21 +2,22 @@
 toc: true
 comments: true
 layout: post
-title: Tools Setup
-description: Become one with your tools.  They could be more important than code, code, coding.
+title: More Detail Plan
+description: Example Plan!!! Analyze hacks and plan.
 type: plans
-courses: { csse: {week: 0}, csp: {week: 0, categories: [4.A]}, csa: {week: 0} }
-categories: [C1.4]
+courses: { compsci: {week: 1} }
 ---
 
-### PBL Unit 1 / Week 0
-Learning outcome.  Installing Tools and showing usage of VSCode.
-- Wednesday - Pick pair share partner, Pick crossover pair, Establish team of four.  Spend some time talking and getting to know each other, particularly with Computer Science experience and goals.  You should be matched with someone that has similar experience.
-- Thursday - Setup Tools on laptop and/or Cloud Computer.
-- Friday - Review and test as a Pair. Spend 25 minutes at one keyboard then switch for next 25 minutes.
+### PBL Unit 1 / Week 1
+Learning outcome. Building a personal and running GitHub Pages.
+- Monday: Schedule Live Review - 4 minutes. Finish Tools setup. Attend Office Hours on HTML, CSS, JS and Student Blog.
+- Tuesday: Read [Markdown Student Page](https://nighthawkcoders.github.io/teacher//c4.3/c5.0/2023/08/17/markdown-html_fragments.html), Attend Office Hours on Updating Home Page and Plan Page.
+- Wednesday: Work Plan Page and Home Page.  Prep with pair on live review.
+- Thursday: 10:45 live review per Canvas.  Read [Linux Shell and Bash](https://nighthawkcoders.github.io/teacher//5.a/c4.1/2023/08/16/linux_shell_IPYNB_2_.html).  Tranfer blog and customize for my lab notebook.
 
-### Hack Prepartation
-> Look for 'Hacks' to know what to do next.  Try to be done and learn your machine before Monday EOD.
+
+### Pair Planning Meeting
+> Update Blog to contain all hacks.  Review week with Pair and look ahead and start plan for next week.  Try to be done and learn your machine before Monday EOD.
 - A laptop, that you bring to class every day with ability to operate Development Tools on it or within the Cloud.
 - GitHub Account, VSCode will be used to push/pull changes. GitHub is where we store and share code in the cloud, think of Google Docs but for Code.
 - GitHub Pages will be used to host your personal blog: containing notes, answering hacks, and showing tangibles.  Building pages will teach Markdown, HTML, CSS, JavaScript and more.

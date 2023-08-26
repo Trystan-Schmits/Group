@@ -2,9 +2,9 @@
 toc: true
 comments: true
 layout: post
-title: VSCode, Python, Jupyter, ...
-description: Tools and equipment setup for tools used throughout this class.
-courses: { csse: {week: 0}, csp: {week: 0}, csa: {week: 0} }
+title: Prunned Tool Procedure ...
+description: Example hacks!!! This shows procedures performed by student, not the procedures for the entire class.  Modified or prunned for specific machine.
+courses: { compsci: {week: 0} }
 type: hacks
 ---
 
