@@ -67,15 +67,15 @@ bundle install
     make convert
     ```
 ### Meta Data (Front Matter)
-- Meta data also known as front matter is a set of key value pairs that can provide additional information to github pages about .md and .ipynb files in our case. This can and probably will be used in other file types as well.
+- Meta data also known as front matter is a set of key value pairs that can provide additional information to github pages about .md and .ipynb files. This can and probably will be used in other file types (ie doc, pdf), if we added them to the system.
 
-- This front matter is what you will use to define where on your computer science lab notebook your plans, hacks(ToDo), and tangibles will go. In the front matter you can also define things like a title and description for the page.
+- In the front matter you can also define things like a title and description for the page.  Additional front matter is defined to place content on "Computer Science Lab Notebook" page.  The `courses:` front matter will place blog under the plans, hacks(ToDo), and tangibles column. 
 
-- In our files the front matter is defined at the top of the page or the first markdown section.
+- In our files the front matter is defined at the top of the page or the first markdown cell.
 
     - First open one of the .md or .ipynb files already included in either your _posts folder or your _notebooks folder.
 
-    - In the .md file you should notice something similar to this at the top of the page. To see this in your .ipynb files you will need to double click the markdown section at the top of the file.
+    - In the .md file you should notice something similar to this at the top of the page. To see this in your .ipynb files you will need to double click the markdown cell at the top of the file.
 
     ```yaml
     ---
@@ -93,6 +93,14 @@ bundle install
 
 - Here we can modify things like the title and description.
 
-- The type value will tell us which column this is going to appear under and the courses tells us which menu item it will be under, in this case the compsci menu item, and the week it will appear under.
+- The type value will tell us which column this is going to appear under, supported values: `plans`, `hacks`, `tangibles`.
 
-- All of the examples for hacks(ToDo) will be under _notebooks while all of the examples for plans and tangibles will be in your _posts folder.
+- The courses tells us which menu item it will be under, in this case the `compsci` menu, and the `week` it will appear under on that menu.
+
+- In our examples,  hacks(ToDo) our IPYNB files and are in  under `_notebooks` folder while all of the examples in our example for plans and tangibles our in the `_posts` folder.
+
+- Key files in Computer Science Lab Notebook
+    - `compsci.md` - this is the "Computer Science Lab Notebook" page and is the link `https://nighthawkcoders.github.io/student/compsci`.  It contains the Title and Number of units on the page.
+    - `_data/compsci.yml` - this contains the supporting data that helps organize the units on the page.
+    - `_layouts`\schedule.html - this contains code, in the Liquid language, that generates the HTML for all the rows and columns.
+    - fyi, the schedule.html could work for another type of page.  For instance, you could make a csa.md, _data/csa.yml, and tag files with `csa: {week: 0}` under courses.
