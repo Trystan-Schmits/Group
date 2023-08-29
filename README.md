@@ -77,7 +77,7 @@ bundle install
 
     - In the .md file you should notice something similar to this at the top of the page. To see this in your .ipynb files you will need to double click the markdown section at the top of the file.
 
-```
+```yaml
 toc: true
 comments: false
 layout: post
