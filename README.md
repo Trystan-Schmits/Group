@@ -97,7 +97,7 @@ bundle install
 
 - The courses tells us which menu item it will be under, in this case the `compsci` menu, and the `week` tells it what row (week) it will appear under that menu.
 
-- In our examples,  hacks(ToDo) our IPYNB files and are in  under `_notebooks` folder while all of the examples in our example for plans and tangibles our in the `_posts` folder.
+- In our examples,  hacks(ToDo) contains references to our IPYNB files; these are stored in GitHub under the `_notebooks` folder.   The plans and tangibles contains references to our MD files; these are stored in GitHub under the `_posts` folder.
 
 - Key files in Computer Science Lab Notebook
     - `compsci.md` - this is the "Computer Science Lab Notebook" page and is the link `https://nighthawkcoders.github.io/student/compsci`.  It contains the Title and Number of units on the page.
