@@ -95,7 +95,7 @@ bundle install
 
 - The type value will tells us which column this is going to appear under, supported values: `plans`, `hacks`, `tangibles`.
 
-- The courses tells us which menu item it will be under, in this case the `compsci` menu, and the `week` tells it what row it will appear under on that menu.
+- The courses tells us which menu item it will be under, in this case the `compsci` menu, and the `week` tells it what row (week) it will appear under that menu.
 
 - In our examples,  hacks(ToDo) our IPYNB files and are in  under `_notebooks` folder while all of the examples in our example for plans and tangibles our in the `_posts` folder.
 
