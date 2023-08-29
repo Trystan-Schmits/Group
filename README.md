@@ -76,7 +76,7 @@ bundle install
     - First open one of the .md or .ipynb files already included in either your _posts folder or your _notebooks folder.
 
     - In the .md file you should notice something similar to this at the top of the page. To see this in your .ipynb files you will need to double click the markdown section at the top of the file.
-    '''
+    '''yaml
     ---
     toc: true
     comments: false
