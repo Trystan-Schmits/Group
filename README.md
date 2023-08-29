@@ -69,7 +69,7 @@ bundle install
 ### Meta Data (Front Matter)
 - Meta data also known as front matter is a set of key value pairs that can provide additional information to github pages about .md and .ipynb files. This can and probably will be used in other file types (ie doc, pdf), if we added them to the system.
 
-- In the front matter you can also define things like a title and description for the page.  Additional front matter is defined to place content on "Computer Science Lab Notebook" page.  The `courses:` front matter will place blog under the plans, hacks(ToDo), and tangibles column. 
+- In the front matter you can also define things like a title and description for the page.  Additional front matter is defined to place content on "Computer Science Lab Notebook" page.  The `courses:` key will place data on a specific page with the nest `week:` sill place data on a specific row on the page.  The `type:` key in front matter will place blog under the plans, hacks(ToDo), and tangibles column. 
 
 - In our files the front matter is defined at the top of the page or the first markdown cell.
 
