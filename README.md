@@ -18,66 +18,10 @@ Deployment Cycle.  In the deplopyment cycle, `sync-github-action-review`, it is 
 
 ### WSL and/or Ubuntu installation requirements
 - The result of these step is Ubuntu tools to run preview server.  These procedures were created using [jekyllrb.com](https://jekyllrb.com/docs/installation/ubuntu/)
-- Run scripts in scripts directory of teacher repo: setup_ubuntu.sh and activate.sh.  Or, follow commands below.
-```bash
-## WSL/Ubuntu commands
-# sudo apt install, installs packages for Ubuntu
-echo "=== Ugrade Packages ==="
-sudo apt update
-sudo apt upgrade -y
-#
-echo "=== Install Ruby ==="
-sudo apt install -y ruby-full build-essential zlib1g-dev
-# 
-echo "=== Install Python ==="
-sudo apt-get install -y python3 python3-pip python-is-python3
-#    
-echo "=== Install Jupyter Notebook ==="
-sudo apt-get install -y jupyter-notebook
-
-# bash commands, install user requirements.
-echo "=== GitHub pages build tools  ==="
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
-echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
-echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
-echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
-echo "=== Gem install starting, thinking... ==="
-gem install jekyll bundler
-head -30 ./teacher/scripts/activate.sh
-echo "=== !!!Start a new Terminal!!! ==="
-```
+- Run scripts in scripts directory of student repo: setup_ubuntu.sh and activate.sh. Expected name of the repository to run these scripts is 'student'.
 
 ### MacOs installation requirements 
-- Ihe result of these step are MacOS tools to run preview server.  These procedures were created using [jekyllrb.com](https://jekyllrb.com/docs/installation/macos/). Run scripts in scripts directory of teacher repo: setup_macos.sh and activate_macos.sh.  Or, follow commands below.
-```bash
-# MacOS commands
-# brew install, installs packages for MacOS
-echo "=== Ugrade Packages ==="
-brew update
-brew upgrade
-#
-echo "=== Install Ruby ==="
-brew install chruby ruby-install xz
-ruby-install ruby 3.1.3
-#
-echo "=== Install Python ==="
-brew install python
-#    
-echo "=== Install Jupyter Notebook ==="
-brew install jupyter
-
-# bash commands, install user requirements.
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
-echo '# Install Ruby Gems to ~/gems' >> ~/.zshrc
-echo 'export GEM_HOME="$HOME/gems"' >> ~/.zshrc
-echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.zshrc
-echo "=== Gem install starting, thinking... ==="
-gem install jekyll bundler
-head -30 ./teacher/scripts/activate.sh
-echo "=== !!!Start a new Terminal!!! ==="
-```
+- Ihe result of these step are MacOS tools to run preview server.  These procedures were created using [jekyllrb.com](https://jekyllrb.com/docs/installation/macos/). Run scripts in scripts directory of student repo: setup_macos.sh and activate_macos.sh. Expected name of the repository to run these scripts is 'student'.
 
 ### Preview
 - The result of these step is server running on: http://0.0.0.0:4100/teacher/.  Regeneration messages will run in terminal on any save.  Press the Enter or Return key in the terminal at any time to enter commands.
@@ -122,3 +66,32 @@ bundle install
     ```bash
     make convert
     ```
+### Meta Data (Front Matter)
+- Meta data also known as front matter is a set of key value pairs that can provide additional information to github pages about .md and .ipynb files in our case. This can and probably will be used in other file types as well.
+
+- This front matter is what you will use to define where on your computer science lab notebook your plans, hacks(ToDo), and tangibles will go. In the front matter you can also define things like a title and description for the page.
+
+- In our files the front matter is defined at the top of the page or the first markdown section.
+
+    - First open one of the .md or .ipynb files already included in either your _posts folder or your _notebooks folder.
+
+    - In the .md file you should notice something similar to this at the top of the page. To see this in your .ipynb files you will need to double click the markdown section at the top of the file.
+    '''
+    ---
+    toc: true
+    comments: false
+    layout: post
+    title: Daily Plan Sample
+    description: Example Blog!!!  This shows planning and notes from hacks.
+    type: plans
+    courses: { compsci: {week: 0} }
+    ---
+    '''
+
+- Front matter will always have '---' at the top and bottom to distinguish it and each key value pair will be separated by a ':'.
+
+- Here we can modify things like the title and description.
+
+- The type value will tell us which column this is going to appear under and the courses tells us which menu item it will be under, in this case the compsci menu item, and the week it will appear under.
+
+- All of the examples for hacks(ToDo) will be under _notebooks while all of the examples for plans and tangibles will be in your _posts folder.
