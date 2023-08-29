@@ -76,16 +76,16 @@ bundle install
     - First open one of the .md or .ipynb files already included in either your _posts folder or your _notebooks folder.
 
     - In the .md file you should notice something similar to this at the top of the page. To see this in your .ipynb files you will need to double click the markdown section at the top of the file.
-    
-    '''
-    toc: true
-    comments: false
-    layout: post
-    title: Daily Plan Sample
-    description: Example Blog!!!  This shows planning and notes from hacks.
-    type: plans
-    courses: { compsci: {week: 0} }
-    '''
+
+'''
+toc: true
+comments: false
+layout: post
+title: Daily Plan Sample
+description: Example Blog!!!  This shows planning and notes from hacks.
+type: plans
+courses: { compsci: {week: 0} }
+'''
 
 - Front matter will always have '---' at the top and bottom to distinguish it and each key value pair will be separated by a ':'.
 
