@@ -12,11 +12,13 @@ courses: { compsci: {week: 2} }
 Conway's Game of Life https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 {% endcomment %}
 
-## Try Game with the following.
+## Try Game by checking boxes with following patterns.
 
 ```
-
-
+Up glider   Down Glider   Very Fun
+ xxx           x            x
+   x            x            x
+  x           xxx           xxx
 ```
 
 <style>
