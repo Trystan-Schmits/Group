@@ -48,15 +48,15 @@ let CurrentFrame = 0;
 var character = new Image(); //character
 character.src = "/Group/images/Game/CharacterSpriteSheet.png";
 //document.getElementById("setFps").insertAdjacentElement("afterend", character);
-var charObject = new Object(character,[31,54],[40,60],[0,0],2,4);
+var charObject = new Object(character,[31,54],[90,160],[0,0],2,4);
 
 var background = new Image(); //Background0
 background.src = "/Group/images/Game/room1.png";
-var backgroundObject = new Object(background,[438,119],[438,119],[0,0],1,1);
+var backgroundObject = new Object(background,[438,119],[1472,400],[0,0],1,1);
 
 var dresser = new Image(); //object1
 dresser.src = "/Group/images/Game/drawer1.png";
-var desserObject = new Object(dresser,[28,28],[28,28],[7,4],1,1);
+var desserObject = new Object(dresser,[28,28],[94,94],[21,13],1,1);
 
 var slime = new Image();//slime
 slime.src = "/Group/images/Game/slime.jpeg"
@@ -148,6 +148,10 @@ function checkForCharacterOverlap(object1){
         }
     }
     return false;
+}
+
+function HandleInteractions(){
+
 }
 
 function frame(){ //when a frame is updated
