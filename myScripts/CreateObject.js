@@ -5,6 +5,7 @@ class CreateObject{
         this.SpriteSize = SpriteScale; //size of each sprite
         this.position = position; //[x,y]
         this.frame = 0;
+        this.state = 0;
         this.maxFrames = maxFrames;
         this.maxState = states;
     }
@@ -22,11 +23,15 @@ class CreateObject{
     }
 
     UpdateFrame(newFrame){
-        if (!newFrame){newFrame = this.frame+1};
         this.frame = newFrame%this.maxFrames;
     }
 
+    UpdateState(newState){
+        this.state = newState%this.maxState;
+    }
+
     draw(ctx,scroll,state){
+        if (state == null){state= this.state};
         var s1 = state%this.maxState;
         var x = this.position[0]-scroll[0];
         var y = scroll[1]-this.position[1];

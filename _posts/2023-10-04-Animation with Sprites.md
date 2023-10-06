@@ -62,7 +62,11 @@ var slime = new Image();//slime
 slime.src = "/Group/images/Game/slime.jpeg"
 var slimeObject = new Object(slime,[225,200],[20,20],[150,0],1,1);
 
-var objects = [[backgroundObject],[desserObject],[slimeObject]];
+var eyes = new Image();
+eyes.src = "/Group/images/Game/eyes.png"
+var eyesObject = new Object(eyes,[20,10],[60,30],[300,300],3,1)
+
+var objects = [[backgroundObject],[eyesObject],[desserObject],[slimeObject]];
 
 function checkForOverlap(object1,object2){
     var pos1 = object1.ReturnPosition().slice();
@@ -168,8 +172,18 @@ function frame(){ //when a frame is updated
         slimeObject.OverridePosition([slimeObject.ReturnPosition()[0]-10/fps,0]);
     }
 
+    if (eyesObject.ReturnPosition()[0] < (Drawer.ReturnScroll()+canvas.offsetWidth/2)){
+        eyesObject.UpdateFrame(0);
+        console.log(true);
+    }
+    else{
+        eyesObject.UpdateFrame(2);
+        console.log(false);
+    }
     //character Animation
-    if (CurrentFrame % Math.round(fps/2)== 0){charObject.UpdateFrame();};
+    var F = 0;
+    if (CurrentFrame % Math.round(fps/2)== 0){F+=1; charObject.UpdateFrame(F);};
+
     switch(movement.state()){
         case 0: 
             if (lastDirection == 1){

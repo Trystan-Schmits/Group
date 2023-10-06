@@ -38,7 +38,7 @@ class Drawing{
         var objects = this.#WhatToDraw();
         if (objects.length>0){
             for (let i=0;i<objects.length;i++){
-                objects[i].draw(ctx,[this.scroll,this.floor],state)
+                objects[i].draw(ctx,[this.scroll,this.floor])
             }
         }
 
