@@ -23,10 +23,12 @@ class CreateObject{
     }
 
     UpdateFrame(newFrame){
+        if (newFrame == null){newFrame = this.frame+1}
         this.frame = newFrame%this.maxFrames;
     }
 
     UpdateState(newState){
+        if (newState == null){newState = this.state+1}
         this.state = newState%this.maxState;
     }
 

@@ -6,7 +6,7 @@ class Movement{
     DeltaX = 0; //x direction of buttons pressed (1 up, -1 down, 0 none)
     DeltaY = 0; //y direction of buttons pressed (1 right, -1 left, 0 none)
 
-    speed = 20; //default speed
+    speed = 80; //default speed
 
     up = "KeyW"; //default keybinds for controls
     down = "KeyS";
