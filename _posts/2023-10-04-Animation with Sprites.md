@@ -52,7 +52,7 @@ var charObject = new Object(character,[31,54],[90,160],[0,0],2,4);
 
 var background = new Image(); //Background0
 background.src = "/Group/images/Game/room1.png";
-var backgroundObject = new Object(background,[438,119],[1472,400],[0,0],1,1);
+var backgroundObject = new Object(background,[438,115],[1472,400],[0,0],1,1);
 
 var dresser = new Image(); //object1
 dresser.src = "/Group/images/Game/drawer1.png";
