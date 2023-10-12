@@ -6,7 +6,7 @@ title: Review Ticket
 description: What to do for the day
 type: tangibles
 courses: { compsci: {week: 3} }
-permalink: /tangibles/week2
+permalink: /tangibles/week3
 ---
 
 ## 
