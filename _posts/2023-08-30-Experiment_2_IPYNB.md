@@ -6,7 +6,7 @@ title: Experiment 2
 description: Testing depth and visual effects
 type: hacks
 courses: {'compsci': {'week': 1}}
-permalink: /plans/experiment
+permalink: /compsci/experiment
 ---
 
 %%html
