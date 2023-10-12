@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame 1
+title: Floating Bed
 description: Week 1 work on our game.
 type: hacks
 courses: {'compsci': {'week': 6}}
@@ -25,35 +25,28 @@ var myCharacter = new Character();
 document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
 document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterSpriteSheet = new Image();
-characterSpriteSheet.src = "/Group/images/Game/monsterambient-sprite.png";
-var myCharacterObject = new Object(characterSpriteSheet,[190,175],[190,175],[0,0],4,1);
+characterSpriteSheet.src = "/Group/images/Game/floatingBed.png";
+var myCharacterObject = new Object(characterSpriteSheet,[500,500],[250,250],[250,250],10,1);
 
 
 var fps = 24;
 var active = true;
 var animId;
 var currentFrame = 0;
-var shakeFrame = 0;
 function frame(){ //when a frame is updated
     currentFrame = (currentFrame+1)%fps;
-    shakeFrame = (shakeFrame+1)%(5*fps);
 
-    var pos = myCharacter.onFrame(fps); //update frame, and get position
-    pos = [pos.x,500-pos.y] //fix position
-    myCharacterObject.OverridePosition(pos); //update object
+    //var pos = myCharacter.onFrame(fps); //update frame, and get position
+    //pos = [pos.x,500-pos.y] //fix position
+    //myCharacterObject.OverridePosition(pos); //update object
 
     if(currentFrame % Math.round(fps/4) == 0){
-        if (myCharacter.moving == false && myCharacter.directionY == 0){ //if moving, and not jumping or crouching
-            myCharacterObject.UpdateFrame();
-        }
+        myCharacterObject.UpdateFrame();
     }
-    var shake = [0,0];
 
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
-
-
-    myCharacterObject.draw(ctx,shake,1); //draw
+    myCharacterObject.draw(ctx,[0,0],1); //draw
 
     // run function again
     setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
