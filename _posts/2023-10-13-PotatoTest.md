@@ -2,7 +2,7 @@
 comments: False
 layout: post
 title: Potato test
-description: Week 2? work on our game.
+description: Basic potato monster ambient and walking animations with user interaction for walking left and right and jumping. 
 type: hacks
 courses: {'compsci': {'week': 5}}
 categories: ['C4.1']
