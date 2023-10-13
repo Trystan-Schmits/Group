@@ -6,7 +6,7 @@ title:  Review Ticket Week 1
 description: Review
 type: tangibles
 courses: { compsci: {week: 1} }
-permalink: /plans/week2
+permalink: /plans/week1
 ---
 
 ## Code
