@@ -10,7 +10,7 @@ categories: ['C4.1']
 <style>
     .container{
         display:block;
-        background-color:white;
+        background-color:black;
     }
 </style>
 <canvas id="display" class="container" height="500px" width="500px"></canvas>
@@ -33,24 +33,36 @@ var fps = 24;
 var active = true;
 var animId;
 var currentFrame = 0;
+
+var x = 0;
+var y = 0;
+
+function overidePosition(x1, y1) {
+  // Update the position based on depth
+  x1 = x1 * (250 / this.depth);
+  y1 = y1 * (250 / this.depth);
+  this.position[0] = x1;
+  this.position[1] = y1;
+};
+
+function float(height) {
+  x -= 10;
+  y = height * Math.sin(currentFrame*(FPS*10));
+
+  if (x < -canvas.width) {
+    x = canvas.width;
+  }
+};
+
 function frame(){ //when a frame is updated
-    currentFrame = (currentFrame+1)%fps;
+    overidePosition();
 
-    //var pos = myCharacter.onFrame(fps); //update frame, and get position
-    //pos = [pos.x,500-pos.y] //fix position
-    //myCharacterObject.OverridePosition(pos); //update object
-
-    if(currentFrame % Math.round(fps/4) == 0){
-        myCharacterObject.UpdateFrame();
-    }
-
-    var ctx = canvas.getContext("2d");
+    const ctx = getContext("2d");
     ctx.clearRect(0,0,500,500);
-    myCharacterObject.draw(ctx,[0,0],1); //draw
+    myCharacterObject.draw(ctx,[0,0],1)
 
-    // run function again
-    setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
-}
+    frame();
+};
 frame();
 
 window.addEventListener('keydown', function(e) { //prevent space from moving screen
