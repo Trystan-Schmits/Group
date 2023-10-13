@@ -5,7 +5,7 @@ layout: post
 title: Monster AI Test
 description: Testing different entities for horror game
 type: tangibles
-courses: {'compsci': {'week': 1}}
+courses: {'compsci': {'week': 0}}
 permalink: /plans/monster_mash
 hide: false
 ---

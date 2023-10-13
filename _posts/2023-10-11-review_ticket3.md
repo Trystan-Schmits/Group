@@ -2,71 +2,22 @@
 toc: false
 comments: true
 layout: post
-title: Review Ticket Week 3
+title: Progress for Week 3
 description: What to do for the day
 type: tangibles
 courses: { compsci: {week: 3} }
 permalink: /tangibles/week3
 ---
 
-## Hello
+## Problem
+Make objects fly across the screen with randomly generated code (Using Math and Sprites)
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sprite Animation</title>
-    <style>
-        canvas {
-            border: 1px solid #000;
-            background-color: #fff; /* Set background color to white */
-        }
-    </style>
-</head>
-<body>
-    <canvas id="spriteCanvas" width="500" height="500"></canvas>
+## Brainstorm (Spencer, Trystan, Zafeer)
+```javascript
+var depth = Math.Floor(-500 * Math.random());
+// All position code
+var x = x * (250 / depth);
+var y = y * (250 / depth);
+```
+-The code would use a random depth value to determine how close or far an object is in the game. By dividing the object's original position by a scaled valuethe code makes objects with larger negative depths appear closer (since the scaling factor is larger), and objects with smaller or positive depths seem farther away (as the scaling factor diminishes), contributing to a sense of depth in the 2D game world.
 
-    <script>
-        const canvas = document.getElementById('spriteCanvas');
-        const ctx = canvas.getContext('2d');
-
-        const sprite = new Image();
-        sprite.src = '/Group/images/pixilart-sprite.png';
-
-        const spriteWidth = 50;
-        const spriteHeight = 50;
-
-        let x = 50;
-        let y = canvas.height / 2;
-        const floatingSpeed = 1;
-
-        function update() {
-            // Clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Implement the floating effect
-            y += Math.sin(x / 20) * floatingSpeed;
-
-            // Draw the sprite
-            ctx.drawImage(sprite, x, y, spriteWidth, spriteHeight);
-
-            // Increment x for movement
-            x += 2;
-
-            // Request the next animation frame
-            requestAnimationFrame(update);
-        }
-
-        // Start the animation when the sprite is loaded
-        sprite.onload = function () {
-            update();
-        };
-
-        // Handle errors loading the sprite
-        sprite.onerror = function () {
-            console.error('Error loading sprite');
-        };
-    </script>
-</body>
-</html>
