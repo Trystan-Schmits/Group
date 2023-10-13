@@ -27,7 +27,7 @@ hide: false
 </head>
 <body>
     <p>Image to use:</p>
-    <img id="tentacle" src="images/Game/pixil-frame-0 (8).png" alt="Arm" width="220" height="277">
+    <img id="tentacle" src="/Group/images/Game/squid.png" alt="Arm" width="220" height="277">
     <p>Canvas to fill:</p>
     <canvas id="myCanvas" width="250" height="300"
     style="border:1px solid #D3D3D3;">Your browser does not support the HTML canvas tag.</canvas>
@@ -45,6 +45,10 @@ hide: false
         function findcontact() {
             // idk
         };
+
+        var x = 0;
+        var y = 0;
+
 
         let mouseX;
         let mouseY;
@@ -70,8 +74,8 @@ hide: false
         };
 
         function tentacle (x1,y1,x2,y2) {
-            let x = x1;
-            let y = y1;
+            x = x1;
+            y = y1;
             const dx = x2 - x1;
             const dy = y2 - y1;
             const dist = Math.sqrt((dx*dx)+(dy*dy))
@@ -94,7 +98,7 @@ hide: false
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             
             // Test Tentacle
-            findmouse();
+            findMouse();
             tentacle(monster.y,monster.x,mouseX,mouseY);
 
             // Draw "Monster"

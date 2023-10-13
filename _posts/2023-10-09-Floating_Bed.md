@@ -10,7 +10,7 @@ categories: ['C4.1']
 <style>
     .container{
         display:block;
-        background-color:black;
+        background-color:white;
     }
 </style>
 <canvas id="display" class="container" height="500px" width="500px"></canvas>
@@ -21,9 +21,9 @@ import Object from "/Group/myScripts/GameScripts/CreateObject.js";
 
 var canvas = document.getElementById("display");
 
-var myCharacter = new Character();
-document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
-document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
+//var myCharacter = new Character();
+//document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
+//document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterSpriteSheet = new Image();
 characterSpriteSheet.src = "/Group/images/Game/floatingBed.png";
 var myCharacterObject = new Object(characterSpriteSheet,[500,500],[250,250],[250,250],10,1);
@@ -55,13 +55,13 @@ function float(height) {
 };
 
 function frame(){ //when a frame is updated
-    overidePosition();
+    //overidePosition();
 
-    const ctx = getContext("2d");
+    const ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
-    myCharacterObject.draw(ctx,[0,0],1)
+    myCharacterObject.draw(ctx,[0,0])
 
-    frame();
+
 };
 frame();
 
