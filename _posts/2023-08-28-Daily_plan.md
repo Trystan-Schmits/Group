@@ -4,7 +4,7 @@ comments: true
 layout: post
 title: Daily meeting
 description: What to do for the day
-type: hacks
+type: plans
 courses: { compsci: {week: 2} }
 permalink: /plans/week2
 ---
