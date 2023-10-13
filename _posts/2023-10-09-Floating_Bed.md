@@ -7,6 +7,7 @@ type: hacks
 courses: {'compsci': {'week': 4}}
 categories: ['C4.1']
 ---
+
 <style>
     .container{
         display:block;
@@ -21,9 +22,9 @@ import Object from "/Group/myScripts/GameScripts/CreateObject.js";
 
 var canvas = document.getElementById("display");
 
-//var myCharacter = new Character();
-//document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
-//document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
+var myCharacter = new Character();
+document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
+document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterSpriteSheet = new Image();
 characterSpriteSheet.src = "/Group/images/Game/floatingBed.png";
 var myCharacterObject = new Object(characterSpriteSheet,[500,500],[250,250],[250,250],10,1);
@@ -33,36 +34,24 @@ var fps = 24;
 var active = true;
 var animId;
 var currentFrame = 0;
-
-var x = 0;
-var y = 0;
-
-function overidePosition(x1, y1) {
-  // Update the position based on depth
-  x1 = x1 * (250 / this.depth);
-  y1 = y1 * (250 / this.depth);
-  this.position[0] = x1;
-  this.position[1] = y1;
-};
-
-function float(height) {
-  x -= 10;
-  y = height * Math.sin(currentFrame*(FPS*10));
-
-  if (x < -canvas.width) {
-    x = canvas.width;
-  }
-};
-
 function frame(){ //when a frame is updated
-    //overidePosition();
+    currentFrame = (currentFrame+1)%fps;
 
-    const ctx = canvas.getContext("2d");
+    //var pos = myCharacter.onFrame(fps); //update frame, and get position
+    //pos = [pos.x,500-pos.y] //fix position
+    //myCharacterObject.OverridePosition(pos); //update object
+
+    if(currentFrame % Math.round(fps/4) == 0){
+        myCharacterObject.UpdateFrame();
+    }
+
+    var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
-    myCharacterObject.draw(ctx,[0,0])
+    myCharacterObject.draw(ctx,[0,0],1); //draw
 
-
-};
+    // run function again
+    setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
+}
 frame();
 
 window.addEventListener('keydown', function(e) { //prevent space from moving screen
@@ -70,4 +59,4 @@ window.addEventListener('keydown', function(e) { //prevent space from moving scr
     e.preventDefault();
   }
 });
-</script>
+</script
