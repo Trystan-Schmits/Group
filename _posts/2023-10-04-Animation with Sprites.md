@@ -4,7 +4,7 @@ layout: post
 title: Sprite Animation
 description: Simple requestAnimationFrame() for sprite animation
 type: hacks
-courses: {'compsci': {'week': 5}}
+courses: {'compsci': {'week': 4}}
 categories: ['C4.1']
 ---
 <style>

@@ -4,7 +4,7 @@ layout: post
 title: Floating Bed
 description: Week 1 work on our game.
 type: hacks
-courses: {'compsci': {'week': 6}}
+courses: {'compsci': {'week': 4}}
 categories: ['C4.1']
 ---
 <style>
