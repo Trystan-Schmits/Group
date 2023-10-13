@@ -28,6 +28,7 @@ categories: ['C4.1']
         // Define an idle sprite sheet for the character
         var idleCharacterSpriteSheet = new Image();
         idleCharacterSpriteSheet.src = "/Group/images/Game/potatoambient.png";
+        var idleObject = new Object(idleCharacterSpriteSheet,[275,275],[315,320],[300,300],4,1)
         var myCharacter = new Character();
         document.addEventListener("keydown", myCharacter.handleKeydown.bind(myCharacter));
         document.addEventListener("keyup", myCharacter.handleKeyup.bind(myCharacter));
@@ -51,11 +52,13 @@ categories: ['C4.1']
                     myCharacterObject.spriteSheet = characterSpriteSheet; // Switch back to the walking sprite sheet
                     myCharacterObject.UpdateFrame();
                 }
+                idleObject.UpdateFrame();
             }
             var shake = [0, 0];
             var ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, 500, 500);
-            myCharacterObject.draw(ctx, shake, 1);
+            myCharacterObject.draw(ctx, shake);
+            idleObject.draw(ctx,[0,0])
             setTimeout(function () {
                 if (active == true) {
                     animId = requestAnimationFrame(frame);
