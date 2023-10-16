@@ -1,13 +1,12 @@
 ---
 comments: False
 layout: post
-title: Floating Bed
-description: Week 1 work on our game.
+title: Candle Sprite
+description: Week 2? work on our game.
 type: hacks
-courses: {'compsci': {'week': 4}}
+courses: {'compsci': {'week': 5}}
 categories: ['C4.1']
 ---
-
 <style>
     .container{
         display:block;
@@ -26,8 +25,8 @@ var myCharacter = new Character();
 document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
 document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterSpriteSheet = new Image();
-characterSpriteSheet.src = "/Group/images/Game/floatingBed.png";
-var myCharacterObject = new Object(characterSpriteSheet,[500,500],[250,250],[250,250],10,1);
+characterSpriteSheet.src = "/Group/images/Game/pixilart-sprite.png";
+var myCharacterObject = new Object(characterSpriteSheet,[500,500],[250,250],[150,250],14,1);
 
 
 var fps = 24;
@@ -59,4 +58,4 @@ window.addEventListener('keydown', function(e) { //prevent space from moving scr
     e.preventDefault();
   }
 });
-</script
+</script>
