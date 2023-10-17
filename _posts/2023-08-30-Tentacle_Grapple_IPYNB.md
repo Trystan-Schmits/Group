@@ -27,7 +27,7 @@ hide: false
 </head>
 <body>
     <p>Image to use:</p>
-    <img id="tentacle" src="/Group/images/Game/squid.png" alt="Arm" width="220" height="277">
+    <img id="tentacle" src="/Group/images/Game/squidtentacle.png" alt="Arm" width="24" height="240">
     <p>Canvas to fill:</p>
     <canvas id="myCanvas" width="250" height="300"
     style="border:1px solid #D3D3D3;">Your browser does not support the HTML canvas tag.</canvas>
@@ -73,14 +73,14 @@ hide: false
             y += speed * Math.cos(dir);
         };
 
+        var img = document.getElementById("tentacle");
+
         function tentacle (x1,y1,x2,y2) {
             x = x1;
             y = y1;
             const dx = x2 - x1;
             const dy = y2 - y1;
             const dist = Math.sqrt((dx*dx)+(dy*dy))
-
-            var img = document.getElementById("tentacle");
 
             var deg = pointTo(img,x2,y2);
             move(dist/2,deg);
