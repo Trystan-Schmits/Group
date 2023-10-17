@@ -2,7 +2,7 @@
 comments: False
 layout: post
 title: Potato test
-description: Basic potato monster ambient and walking animations with user interaction for walking left and right and jumping. 
+description: Basic potato monster ambient and walking animations with user interaction for walking left and right and jumping.
 type: hacks
 courses: {'compsci': {'week': 5}}
 categories: ['C4.1']
