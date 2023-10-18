@@ -19,6 +19,7 @@ categories: ['C4.1']
 //import needed modules
 import Character from "/Group/myScripts/GameScripts/CharacterMovement.js";
 import Object from "/Group/myScripts/GameScripts/CreateObject.js";
+import light from "/Group/myScripts/GameScripts/Lights.js";
 
 //define canvas
 var canvas = document.getElementById("display");
@@ -50,7 +51,7 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 
     //lighting
     var lightingSprite = new Image();
-    lightingSprite.src = "/Group/images/Game/shadingV2.png";
+    lightingSprite.src = "/Group/images/Game/ShadingV3.png";
     var lightObject = new Object(lightingSprite,[500,500],[500,500],[0,0],1,1);
     
     //neighbor
@@ -69,27 +70,27 @@ function frame(){ //when a frame is updated
     currentFrame = (currentFrame+1)%fps;
     if (currentFrame == 0){sec+=1}
 
-    //var pos = myCharacter.onFrame(fps); //update frame, and get position
-    //pos = [pos.x,500-pos.y] //fix position
-    //myCharacterObject.OverridePosition(pos); //update objects
+    var pos = myCharacter.onFrame(fps); //update frame, and get position
+    pos = [pos.x,500-pos.y] //fix position
+    myCharacterObject.OverridePosition(pos); //update objects
     
-    //var scale = lightObject.ReturnScale();
-    //lightObject.OverridePosition([pos[0]+scale[0]/2,pos[1]+scale[1]/2])
-    //lightObject.OverridePosition([pos[0]-scale[0]/2+100,pos[1]+scale[1]/2-100])
 
     if(currentFrame % Math.round(fps/4) == 0){
         if (myCharacter.moving == false && myCharacter.directionY == 0){ //if moving, and not jumping or crouching
             myCharacterObject.UpdateFrame();
         }
+    }
+    if(currentFrame % Math.round(fps/2)==0){
+        light([[250,250,2],[150,300,1],[400,500,.5]],lightObject,hiddenCanvas)
     } 
     //draw frame
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
 
-    myCharacterObject.draw(ctx,[0,0],20);
+    myCharacterObject.draw(ctx,[0,0],0);
 
     //shadows
-    light([[-150,500],[250,500]],hiddenCanvas)
+    
     //var imgData = ctxH.getImageData(0,0,canvas.width,canvas.height);
     //var pixels = imgData.data;
     //for (let i=3;i<pixels.length;i+=4){
@@ -102,27 +103,6 @@ function frame(){ //when a frame is updated
 
     //run function again
     setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
-}
-
-function light(sourceLocations,canvas){
-    var oldData;
-    var ctx = canvas.getContext("2d")
-    ctx.clearRect(0,0,500,500)
-    lightObject.draw(ctx,sourceLocations[0])
-    for (let i=1;i<sourceLocations.length;i++){
-
-        oldData = ctx.getImageData(0,0,500,500);
-
-        lightObject.draw(ctx,sourceLocations[i]);
-        var newData = ctx.getImageData(0,0,500,500);
-
-        for (let i2=3;i2<newData.length;i2++){
-            console.log("hi")
-            newData.data[i2]=(newData.data[i]<oldData.data[i])?newData.data[i]:oldData.data[i];
-        }
-        ctx.putImageData(newData,0,0)
-
-    }
 }
 
 
