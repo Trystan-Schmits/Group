@@ -38,19 +38,18 @@ class CreateObject{
         var s1 = this.state;
         var x = this.position[0]+scroll[0];
         var y = this.position[1]+scroll[1];
-        var a = (rotation * Math.PI)/180
-        //drawing function
+        var a = ((rotation) * Math.PI)/180; //convert to rad
 
         //rotate object
-        ctx.translate(this.image.width/2,this.image.height/2);
+        ctx.translate(x,y);
         ctx.rotate(a);
-        ctx.translate(-this.image.width/2,-this.image.height/2)
 
-        console.log(x,y)
         //draw
-        ctx.drawImage(this.image,this.frame*this.SpriteSize[0],s1*this.SpriteSize[1],this.SpriteSize[0],this.SpriteSize[1],x,y,this.scale[0],-1*this.scale[1]);
-        
-        ctx.setTransform(1, 0, 0, 1, 0, 0); //something something reset matrix
+        ctx.drawImage(this.image,this.frame*this.SpriteSize[0],s1*this.SpriteSize[1],this.SpriteSize[0],this.SpriteSize[1],0,0,this.scale[0],-1*this.scale[1]);
+
+        //undo rotations for next objects
+        ctx.translate(-x,-y);
+        ctx.rotate(-a);
     }
 }
 export default CreateObject;
