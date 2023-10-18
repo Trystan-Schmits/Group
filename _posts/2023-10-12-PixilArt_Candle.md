@@ -25,7 +25,7 @@ var myCharacter = new Character();
 document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
 document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterSpriteSheet = new Image();
-characterSpriteSheet.src = "/Group/images/Game/pixilart-sprite.png";
+characterSpriteSheet.src = "/Group/images/Game/candle-sprite.png";
 var myCharacterObject = new Object(characterSpriteSheet,[500,500],[250,250],[150,250],14,1);
 
 
