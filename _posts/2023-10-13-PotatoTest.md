@@ -70,6 +70,25 @@ categories: ['C4.1']
                 }
             }, 1000 / fps);
         }
+        // Move left and right
+        document.addEventListener("keydown", (event) => {
+            switch (event.key) {
+                case "ArrowUp":
+                    event.preventDefault();
+                    break;
+                case "ArrowDown":
+                    event.preventDefault();
+                    break;
+                case "ArrowLeft":
+                    player.xv -= 1.5;
+                    event.preventDefault();
+                    break;
+                case "ArrowRight":
+                    player.xv += 1.5;
+                    event.preventDefault();
+                    break;
+            }
+        });
         // Start the animation loop
         frame();
         // Prevent spacebar scrolling the page
@@ -81,3 +100,4 @@ categories: ['C4.1']
     </script>
 </body>
 </html>
+
