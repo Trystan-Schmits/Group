@@ -128,11 +128,5 @@ function frame(){ //when a frame is updated
 //    var scale = lightObject.ReturnScale();
 //    lightObject.OverridePosition([e.offsetX-scale[0]/2,e.offsetY+scale[1]/2])
 //});
-window.addEventListener('keydown', function(e) { //prevent space from moving screen
-  if(e.keyCode == 32 && e.target == document.body) {
-    e.preventDefault();
-  }
-});
-
 frame();
 </script>
