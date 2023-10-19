@@ -37,14 +37,19 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
     //main character
     var characterSpriteSheet = new Image();
     characterSpriteSheet.src = "/Group/images/Game/squidambient-sprite.png";
-    var myCharacterObject = new Object(characterSpriteSheet,[190,175],[190,175],[250,500],4,1);
+    var myCharacterObject = new Object("character", characterSpriteSheet,[190,175],[190,175],[250,500],4,1);
 
     //backgrounds
         //apartment background
         var redPixelSprite = new Image();
         redPixelSprite.src = "/Group/images/Game/redPixel.png"
+        var redObject = new Object ("background1",redPixelSprite,[1,1],[100,500],[0,500],1,1);
+        var redObject2 = new Object ("background3", redPixelSprite,[1,1],[100,500],[200,500],1,1);
+        var redObject3 = new Object ("background5", redPixelSprite,[1,1],[100,500],[400,500],1,1);
         var whitePixelSprite = new Image();
         whitePixelSprite.src = "/Group/images/Game/whitePixel.png"
+        var whiteObject = new Object ("background 2",whitePixelSprite,[1,1],[100,500],[100,500],1,1);
+        var whiteObject2 = new Object ("background 4",whitePixelSprite,[1,1],[100,500],[300,500],1,1);
         //hallway
 
         //
@@ -52,7 +57,7 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
     //lighting
     var lightingSprite = new Image();
     lightingSprite.src = "/Group/images/Game/ShadingV3.png";
-    var lightObject = new Object(lightingSprite,[500,500],[500,500],[0,0],1,1);
+    var lightObject = new Object("light",lightingSprite,[500,500],[500,500],[0,0],1,1);
     
     //neighbor
 
@@ -60,6 +65,18 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 
     //text
 
+
+class Group{
+    constructor(objects){
+        this.objects = objects;
+    }
+
+    OverrideScroll(pos){
+        this.objects.forEach(function(obj){obj.UpdateCameraScroll(pos)})
+    }
+}
+
+var group1 = new Group([myCharacterObject,redObject,whiteObject,redObject2,whiteObject2,redObject3,lightObject])
 
 var fps = 24;
 var active = true;
@@ -70,8 +87,10 @@ function frame(){ //when a frame is updated
     currentFrame = (currentFrame+1)%fps;
     if (currentFrame == 0){sec+=1}
 
+    group1.OverrideScroll([-(10*sec+10*(1/fps)*currentFrame),0]); // update camera
+
     var pos = myCharacter.onFrame(fps); //update frame, and get position
-    pos = [pos.x,500-pos.y] //fix position
+    pos = [pos.x,500-pos.y]; //fix position
     myCharacterObject.OverridePosition(pos); //update objects
     
 
@@ -81,24 +100,23 @@ function frame(){ //when a frame is updated
         }
     }
     if(currentFrame % Math.round(fps/2)==0){
-        light([[250,250,2],[150,300,1],[400,500,.5]],lightObject,hiddenCanvas)
+        light([[400,500,.5],[100,250,1]],lightObject,hiddenCanvas,true)
     } 
     //draw frame
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
-
-    myCharacterObject.draw(ctx,[0,0],0);
-
-    //shadows
     
-    //var imgData = ctxH.getImageData(0,0,canvas.width,canvas.height);
-    //var pixels = imgData.data;
-    //for (let i=3;i<pixels.length;i+=4){
-    //    pixels[i] = 255-pixels[i];
-    //}
-    //ctxH.clearRect(0,0,500,500);
-    //ctxH.putImageData(imgData,0,0);
-    
+    //background
+    redObject.drawWithCameraScroll(ctx,[0,0]);
+    redObject2.drawWithCameraScroll(ctx,[0,0]);
+    redObject3.drawWithCameraScroll(ctx,[0,0]);
+    whiteObject.drawWithCameraScroll(ctx,[0,0]);
+    whiteObject2.drawWithCameraScroll(ctx,[0,0]);
+
+    //character
+    myCharacterObject.drawWithCameraScroll(ctx,[0,0]);
+
+    //lighting
     ctx.drawImage(hiddenCanvas,0,0);
 
     //run function again
