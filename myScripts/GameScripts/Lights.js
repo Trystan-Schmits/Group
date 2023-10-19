@@ -1,4 +1,4 @@
-export default function light(source,lightObject,canvas){
+export default function light(source,lightObject,canvas,withScroll){
     var scale = lightObject.ReturnScale()
     for (let i=0;i<source.length;i++){
         source[i][0] -= scale[0]/2*source[i][2];
@@ -12,7 +12,7 @@ export default function light(source,lightObject,canvas){
     //ctx.globalCompositeOperation = "lighter"; //adds overlapping colors together
     for (let i=0;i<source.length;i++){
         oldData = ctx.getImageData(0,0,500,500).data.slice();
-        lightObject.draw(ctx,source[i]);
+        if(withScroll == null || withScroll == false){lightObject.draw(ctx,source[i]);}else{lightObject.drawWithCameraScroll(ctx,source[i]);}
         imageData = ctx.getImageData(0,0,500,500);
         newData = imageData.data;
         for (let ii = 3; ii<newData.length; ii+=4){
