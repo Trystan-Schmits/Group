@@ -47,7 +47,7 @@ function frame(){ //when a frame is updated
 
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
-    myCharacterObject.draw(ctx,[0,0],1); //draw
+    myCharacterObject.draw(ctx,[0,0]); //draw
 
     // run function again
     setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);

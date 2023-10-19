@@ -37,6 +37,7 @@ class Movement{
         return this.position;
     }
     handleKeydown(event){
+        event.preventDefault();
         switch(event.code){
             case this.down:
                 this.directionY = -1;
@@ -58,6 +59,7 @@ class Movement{
         }
     }
     handleKeyup(event){
+        event.preventDefault();
         switch(event.code){
             case this.down:
                 this.directionY = 0;
