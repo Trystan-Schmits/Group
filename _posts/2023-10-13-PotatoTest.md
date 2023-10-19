@@ -31,8 +31,8 @@ categories: ['C4.1']
         idleCharacterSpriteSheet.src = "/Group/images/Game/potatoambient-sprite.png";
         // Create character and idle object instances
         var myCharacter = new Character();
-        var myCharacterObject = new Object(characterSpriteSheet, [315, 320], [315, 320], [0, 0], 4, 1);
-        var idleObject = new Object(idleCharacterSpriteSheet, [275, 275], [315, 320], [200, 250], 4, 1);
+        var myCharacterObject = new Object("potato man",characterSpriteSheet, [315, 320], [315, 320], [0, 0], 4, 1);
+        var idleObject = new Object("idle potato man",idleCharacterSpriteSheet, [275, 275], [315, 320], [200, 250], 4, 1);
         // Animation settings
         var fps = 20;
         var active = true;
