@@ -83,6 +83,8 @@ var active = true;
 var animId;
 var currentFrame = 0;
 var sec = 0;
+var ScrollDir = -1;
+var currentScroll = 0;
 function frame(){ //when a frame is updated
     currentFrame = (currentFrame+1)%fps;
     if (currentFrame == 0){sec+=1}
@@ -99,7 +101,7 @@ function frame(){ //when a frame is updated
             myCharacterObject.UpdateFrame();
         }
     }
-    if(currentFrame % Math.round(fps/2)==0){
+    if(currentFrame % Math.round(fps/4)==0){
         light([[400,500,.5],[100,250,1]],lightObject,hiddenCanvas,true)
     } 
     //draw frame
