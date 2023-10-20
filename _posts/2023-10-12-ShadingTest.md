@@ -102,7 +102,7 @@ function frame(){ //when a frame is updated
         }
     }
     if(currentFrame % Math.round(fps/4)==0){
-        light([[400,500,.5],[100,250,1]],lightObject,hiddenCanvas,true)
+        light([[400,500,.5],[100,250,1],[400,100,1]],lightObject,hiddenCanvas,true)
     } 
     //draw frame
     var ctx = canvas.getContext("2d");
