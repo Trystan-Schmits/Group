@@ -28,6 +28,11 @@ hiddenCanvas.setAttribute("width","500px");
 hiddenCanvas.setAttribute("height","500px");
 hiddenCanvas.setAttribute("willReadFrequently",true);
 
+var hiddenCanvas2 = document.createElement("canvas");
+hiddenCanvas.setAttribute("width","500px");
+hiddenCanvas.setAttribute("height","500px");
+hiddenCanvas.setAttribute("willReadFrequently",true);
+
 //bind inputs to a controller
 var myCharacter = new Character();
 document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
@@ -105,7 +110,7 @@ function frame(){ //when a frame is updated
         light([[400,500,.5],[100,250,1],[400,100,1]],lightObject,hiddenCanvas,true)
     } 
     //draw frame
-    var ctx = canvas.getContext("2d");
+    var ctx = hiddenCanvas2.getContext("2d");
     ctx.clearRect(0,0,500,500);
     
     //background
