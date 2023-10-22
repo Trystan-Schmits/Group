@@ -2,7 +2,7 @@ export default function light(source,lightObject,canvas,withScroll){
     var scale = lightObject.ReturnScale()
     for (let i=0;i<source.length;i++){
         source[i][0] -= scale[0]/2*source[i][2];
-        source[i][1] += scale[0]/2*source[i][2];
+        source[i][1] += scale[1]/2*source[i][2];
     } //center positions to the middle of the light source
     var imageData;
     var oldData;

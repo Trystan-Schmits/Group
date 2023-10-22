@@ -1,8 +1,8 @@
 ---
 comments: False
 layout: post
-title: Shading
-description: Testing out how to shade a screen
+title: Different Frames 
+description: Showing How Multiple Frames would work (for menuing and different rooms)
 type: hacks
 courses: {'compsci': {'week': 6}}
 categories: ['C4.1']
@@ -12,21 +12,34 @@ categories: ['C4.1']
         display:block;
         background-color:white;
     }
+    .container2{
+        width:25%;
+        height:25%;
+        display:inline-block;
+        background-color:white;
+    }
 </style>
-<canvas id="display" class="container" height="500px" width="500px"></canvas>
+<canvas id="mainDisplay" class="container" height="500px" width="500px"></canvas>
+<br>
+<canvas id="subDisplay" class="container2" height="500px" width="500px"></canvas>
+<canvas id="subDisplay1" class="container2" height="500px" width="500px"></canvas>
+
 
 <script type="module">
 //import needed modules
 import Character from "/Group/myScripts/GameScripts/CharacterMovement.js";
 import Object from "/Group/myScripts/GameScripts/CreateObject.js";
 import light from "/Group/myScripts/GameScripts/Lights.js";
+import {Display,subDisplay} from "/Group/myScripts/GameScripts/Displays.js"
 
 //define canvas
-var canvas = document.getElementById("display");
+var canvas = document.getElementById("mainDisplay");
+var subCanvas = document.getElementById("subDisplay");
+var subCanvas1 = document.getElementById("subDisplay1");
+
 var hiddenCanvas = document.createElement("canvas");
 hiddenCanvas.setAttribute("width","500px");
 hiddenCanvas.setAttribute("height","500px");
-hiddenCanvas.setAttribute("willReadFrequently",true);
 
 //bind inputs to a controller
 var myCharacter = new Character();
@@ -65,70 +78,49 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 
     //text
 
+var subDisplay1 = new subDisplay(subCanvas,[redObject,whiteObject,redObject2,whiteObject2,redObject3]);
+subDisplay1.OverrideScroll[0,0];
 
-class Group{
-    constructor(objects){
-        this.objects = objects;
-    }
+var subDisplay2 = new subDisplay(subCanvas1,[myCharacterObject]);
+subDisplay2.OverrideScroll[0,0];
 
-    OverrideScroll(pos){
-        this.objects.forEach(function(obj){obj.UpdateCameraScroll(pos)})
-    }
-}
+var MainDisplay = new Display(canvas,subDisplay1);
 
-var group1 = new Group([myCharacterObject,redObject,whiteObject,redObject2,whiteObject2,redObject3,lightObject])
 
-var fps = 24;
-var active = true;
-var animId;
+var bool = false
 var currentFrame = 0;
 var sec = 0;
-var ScrollDir = -1;
-var currentScroll = 0;
-function frame(){ //when a frame is updated
+var active = true; //set to false to stop all animation
+var fps = 24;
+function frame(){
     currentFrame = (currentFrame+1)%fps;
-    if (currentFrame == 0){sec+=1}
-
-    group1.OverrideScroll([-(10*sec+10*(1/fps)*currentFrame),0]); // update camera
+    if (currentFrame == 0){sec+=1};
 
     var pos = myCharacter.onFrame(fps); //update frame, and get position
     pos = [pos.x,500-pos.y]; //fix position
-    myCharacterObject.OverridePosition(pos); //update objects
-    
+    myCharacterObject.OverridePosition(pos); //update character Position
 
-    if(currentFrame % Math.round(fps/4) == 0){
-        if (myCharacter.moving == false && myCharacter.directionY == 0){ //if moving, and not jumping or crouching
-            myCharacterObject.UpdateFrame();
+    subDisplay1.draw(0); //update subCanvas (withoutOffset)
+
+    subDisplay2.draw(0); //update SubCanvas (without offset)
+
+    console.log("fired")
+    MainDisplay.handleFrame();
+    if (sec % 5 ==0 && currentFrame == 0){
+        if(bool==false){
+            MainDisplay.setActiveDisplay(subDisplay1);
+            bool = true;
+        }
+        else{
+           MainDisplay.setActiveDisplay(subDisplay2);
+            bool = false; 
         }
     }
-    if(currentFrame % Math.round(fps/4)==0){
-        light([[400,500,.5],[100,250,1],[400,100,1]],lightObject,hiddenCanvas,true)
-    } 
-    //draw frame
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,500,500);
-    
-    //background
-    redObject.drawWithCameraScroll(ctx,[0,0]);
-    redObject2.drawWithCameraScroll(ctx,[0,0]);
-    redObject3.drawWithCameraScroll(ctx,[0,0]);
-    whiteObject.drawWithCameraScroll(ctx,[0,0]);
-    whiteObject2.drawWithCameraScroll(ctx,[0,0]);
 
-    //character
-    myCharacterObject.drawWithCameraScroll(ctx,[0,0]);
-
-    //lighting
-    ctx.drawImage(hiddenCanvas,0,0);
-
-    //run function again
-    setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
+setTimeout(function() {if(active == true){requestAnimationFrame(frame)}}, 1000 / fps);
 }
 
+frame()
 
-//canvas.addEventListener("mousemove", function(e){
-//    var scale = lightObject.ReturnScale();
-//    lightObject.OverridePosition([e.offsetX-scale[0]/2,e.offsetY+scale[1]/2])
-//});
-frame();
+
 </script>
