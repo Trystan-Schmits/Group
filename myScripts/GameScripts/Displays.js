@@ -12,7 +12,7 @@ class Display{
         this.displayToDraw = newDisplay;
     }
 
-    handleFrame(){   
+    draw(){   
         var ctx = this.canvas.getContext("2d"); //get Main Canvas Context
         ctx.clearRect(0,0,this.width,this.height); //clear Main Canvas
         ctx.drawImage(this.displayToDraw.subCanvas,0,0); //draw subCanvas onto main canvas

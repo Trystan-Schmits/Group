@@ -81,8 +81,6 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var subDisplay1 = new subDisplay(subCanvas,[redObject,whiteObject,redObject2,whiteObject2,redObject3]);
 subDisplay1.OverrideScroll([0,0]);
 
-
-
 var subDisplay2 = new subDisplay(subCanvas1,[myCharacterObject]);
 subDisplay2.OverrideScroll([0,0]);
 
@@ -104,7 +102,7 @@ function frame(){
 
     subDisplay2.draw(1); //update SubCanvas (without offset)
 
-    MainDisplay.handleFrame();
+    MainDisplay.draw();
 
     if (sec % 5 ==0 && currentFrame == 0){
         if(bool==false){
