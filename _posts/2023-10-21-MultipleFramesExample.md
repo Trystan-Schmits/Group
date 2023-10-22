@@ -79,10 +79,12 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
     //text
 
 var subDisplay1 = new subDisplay(subCanvas,[redObject,whiteObject,redObject2,whiteObject2,redObject3]);
-subDisplay1.OverrideScroll[0,0];
+subDisplay1.OverrideScroll([0,0]);
+
+
 
 var subDisplay2 = new subDisplay(subCanvas1,[myCharacterObject]);
-subDisplay2.OverrideScroll[0,0];
+subDisplay2.OverrideScroll([0,0]);
 
 var MainDisplay = new Display(canvas,subDisplay1);
 
@@ -100,12 +102,10 @@ function frame(){
     pos = [pos.x,500-pos.y]; //fix position
     myCharacterObject.OverridePosition(pos); //update character Position
 
-    subDisplay1.draw(0); //update subCanvas (withoutOffset)
+    subDisplay2.draw(1); //update SubCanvas (without offset)
 
-    subDisplay2.draw(0); //update SubCanvas (without offset)
-
-    console.log("fired")
     MainDisplay.handleFrame();
+
     if (sec % 5 ==0 && currentFrame == 0){
         if(bool==false){
             MainDisplay.setActiveDisplay(subDisplay1);
@@ -120,7 +120,9 @@ function frame(){
 setTimeout(function() {if(active == true){requestAnimationFrame(frame)}}, 1000 / fps);
 }
 
-frame()
+window.addEventListener("load",function(){subDisplay1.draw(0).bind(subDisplay1)}) //wait for window to load then draw static canvas
+
+frame(); //run frame
 
 
 </script>
