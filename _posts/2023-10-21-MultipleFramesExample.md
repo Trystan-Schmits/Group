@@ -23,7 +23,7 @@ categories: ['C4.1']
 <br>
 <canvas id="subDisplay" class="container2" height="500px" width="500px"></canvas>
 <canvas id="subDisplay1" class="container2" height="500px" width="500px"></canvas>
-
+<canvas id="subDisplay2" class="container2" height="500px" width="500px"></canvas>
 
 <script type="module">
 //import needed modules
@@ -36,10 +36,7 @@ import {Display,subDisplay} from "/Group/myScripts/GameScripts/Displays.js"
 var canvas = document.getElementById("mainDisplay");
 var subCanvas = document.getElementById("subDisplay");
 var subCanvas1 = document.getElementById("subDisplay1");
-
-var hiddenCanvas = document.createElement("canvas");
-hiddenCanvas.setAttribute("width","500px");
-hiddenCanvas.setAttribute("height","500px");
+var subCanvas2 = document.getElementById("subDisplay2")
 
 //bind inputs to a controller
 var myCharacter = new Character();
@@ -78,12 +75,19 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 
     //text
 
+
+//red and white display
 var subDisplay1 = new subDisplay(subCanvas,[redObject,whiteObject,redObject2,whiteObject2,redObject3]);
 subDisplay1.OverrideScroll([0,0]);
 
+//character display
 var subDisplay2 = new subDisplay(subCanvas1,[myCharacterObject]);
 subDisplay2.OverrideScroll([0,0]);
 
+//shadow display
+var subDisplay3 = new subDisplay(subCanvas2);
+
+//main display
 var MainDisplay = new Display(canvas,subDisplay1);
 
 
@@ -97,25 +101,30 @@ function frame(){
     if (currentFrame == 0){sec+=1};
 
 
-    if (MainDisplay.activeDisplay == subDisplay2){ //if display with person is active
+    if (bool == false){ //if display with person is active
     var pos = myCharacter.onFrame(fps); //update frame, and get position
     pos = [pos.x,500-pos.y]; //fix position
     myCharacterObject.OverridePosition(pos); //update character Position
     }
-    subDisplay2.draw(1); //update SubCanvas (without offset)
 
-    MainDisplay.draw();
+    if(currentFrame % Math.round(fps/4)==0){ //update lighting
+        light([[400,500,.5],[100,250,1],[400,100,1]],lightObject,subCanvas2,false);
+    }
 
-    if (sec % 5 ==0 && currentFrame == 0){
+    if (sec % 5 ==0 && currentFrame == 0){ //set active display
         if(bool==false){
             MainDisplay.setActiveDisplay(subDisplay1);
             bool = true;
         }
         else{
-           MainDisplay.setActiveDisplay(subDisplay2);
+           MainDisplay.setActiveDisplay([subDisplay2,subDisplay3]);
             bool = false; 
         }
     }
+
+    subDisplay2.draw(1); //update SubCanvas (without offset)
+
+    MainDisplay.draw(1); //update Main Canvas
 
 setTimeout(function() {if(active == true){requestAnimationFrame(frame)}}, 1000 / fps);
 }
