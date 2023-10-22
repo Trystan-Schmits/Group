@@ -96,10 +96,12 @@ function frame(){
     currentFrame = (currentFrame+1)%fps;
     if (currentFrame == 0){sec+=1};
 
+
+    if (MainDisplay.activeDisplay == subDisplay2){ //if display with person is active
     var pos = myCharacter.onFrame(fps); //update frame, and get position
     pos = [pos.x,500-pos.y]; //fix position
     myCharacterObject.OverridePosition(pos); //update character Position
-
+    }
     subDisplay2.draw(1); //update SubCanvas (without offset)
 
     MainDisplay.draw();
@@ -118,7 +120,7 @@ function frame(){
 setTimeout(function() {if(active == true){requestAnimationFrame(frame)}}, 1000 / fps);
 }
 
-window.addEventListener("load",function(){subDisplay1.draw(0).bind(subDisplay1)}) //wait for window to load then draw static canvas
+window.addEventListener("load",function(){subDisplay1.draw(0)}) //wait for window to load then draw static canvas
 
 frame(); //run frame
 
