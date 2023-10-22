@@ -20,8 +20,8 @@ class Display{
 }
 
 class subDisplay{
-    constructor(subCanvas,objects){
-        this.subCanvas = subCanvas;
+    constructor(canvas,objects){
+        this.canvas = canvas;
         this.objects = objects;
         this.width = this.subCanvas.width;
         this.height = this.subCanvas.height;
@@ -32,7 +32,7 @@ class subDisplay{
     }
 
     draw(type){//type 0 = without CameraScroll, 1 with CameraScroll
-        var ctx = this.subCanvas.getContext("2d");
+        var ctx = this.canvas.getContext("2d");
         ctx.clearRect(0,0,this.width,this.height);
         switch(type){
             case 0:
