@@ -15,7 +15,7 @@ class Display{
     draw(type){   
         var ctx = this.canvas.getContext("2d"); //get Main Canvas Context
         ctx.clearRect(0,0,this.width,this.height); //clear Main Canvas
-        if (this.activeDisplay.length !== undefined){
+        if (this.activeDisplay.length !== undefined){ //if there is multiple displays
             this.activeDisplay.forEach(function(obj){ctx.drawImage(obj.canvas,0,0);});
         }
         else{ctx.drawImage(this.activeDisplay.canvas,0,0);} //draw subCanvas onto main canvas

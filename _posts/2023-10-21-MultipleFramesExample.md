@@ -27,7 +27,7 @@ categories: ['C4.1']
 
 <script type="module">
 //import needed modules
-import Character from "/Group/myScripts/GameScripts/CharacterMovement.js";
+import Controller from "/Group/myScripts/GameScripts/CharacterMovement.js";
 import Object from "/Group/myScripts/GameScripts/CreateObject.js";
 import light from "/Group/myScripts/GameScripts/Lights.js";
 import {Display,subDisplay} from "/Group/myScripts/GameScripts/Displays.js"
@@ -39,7 +39,7 @@ var subCanvas1 = document.getElementById("subDisplay1");
 var subCanvas2 = document.getElementById("subDisplay2")
 
 //bind inputs to a controller
-var myCharacter = new Character();
+var myCharacter = new Controller();
 document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
 document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 
