@@ -11,6 +11,8 @@ categories: ['C4.1']
     .container{
         display:block;
         background-color:white;
+        width: 100%;
+        height: 75%;
     }
     .container2{
         width:25%;
@@ -107,7 +109,7 @@ function frame(){
     myCharacterObject.OverridePosition(pos); //update character Position
     }
 
-    if(currentFrame % Math.round(fps/4)==0){ //update lighting
+    if(currentFrame % Math.round(fps/4)==0){ //update lighting every 1/4 sec
         light([[400,500,.5],[100,250,1],[400,100,1]],lightObject,subCanvas2,false);
     }
 
