@@ -5,7 +5,7 @@ layout: post
 title: Review Ticket week 4 [What we focused on]
 description: Reviewing what we learned from this week
 type: tangibles
-courses: { compsci: {week: 6} }
+courses: { compsci: {week: 4} }
 permalink: /tangibles/week4
 ---
 
