@@ -102,22 +102,14 @@ permalink: /plans/collsion
                 }
             }
         }
+        var detect = 0;
         function physics() {
             playerPosition();
             playerCollide(1);
             if (collide === true) {
-                colup();
-                playerCollide(1);
-                if (collide === true) {
-                    // xcol();
-                    player.xv = 0;
+                if (detect === 1) {
+                    ctx.fillStyle = "blue";
                 }
-            }
-            // playerCollide(1);
-            // if (collide === true) {
-            //     ycol();
-            //     player.yv = 0;
-            // }
         };
         function playerPosition() {
             player.xv = player.xv * 0.7;
@@ -127,6 +119,7 @@ permalink: /plans/collsion
         };
         // Update function
         function update() {
+            detect = 0;
             // Clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             // Change scroll variables to slide
@@ -169,6 +162,10 @@ permalink: /plans/collsion
                     break;
                 case "ArrowRight":
                     player.xv += 1.5;
+                    event.preventDefault();
+                    break;
+                case "KeyE":
+                    detect = 1;
                     event.preventDefault();
                     break;
             }
