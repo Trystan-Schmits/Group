@@ -88,9 +88,9 @@ hide: false
             console.log("ai is located at" + ai.x)
             // Move the AI towards the player
             if (ai.x < (player.x + canvas.width/2)) {
-                ai.x += 0.1;
+                ai.x += 0.5;
             } else if (ai.x > player.x) {
-                ai.x -= 0.1;
+                ai.x -= 0.5;
             }
 
             // Change scroll variables to slide
