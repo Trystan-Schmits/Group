@@ -50,13 +50,13 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
     //windows
     var windowSpriteSheet = new Image();
     windowSpriteSheet.src = "/Group/images/Game/window-rain-sprite.png";
-    var windowObject1 = new Object("window", windowSpriteSheet,[75,90],[114,160],[7,154],23,1);
-    var windowObject2 = new Object("window", windowSpriteSheet,[75,90],[114,160],[175,154],23,1);
-    var windowObject3 = new Object("window", windowSpriteSheet,[75,90],[114,160],[337,154],23,1);
+    var windowObject1 = new Object("window", windowSpriteSheet,[100,100],[152,180],[7,174],23,1);
+    var windowObject2 = new Object("window", windowSpriteSheet,[100,100],[152,180],[175,174],23,1);
+    var windowObject3 = new Object("window", windowSpriteSheet,[100,100],[152,180],[337,174],23,1);
 
     //text
 
-var fps = 24;
+var fps = 23;
 var active = true;
 var animId;
 var currentFrame = 0;
@@ -76,6 +76,9 @@ function frame(){ //when a frame is updated
     if (currentFrame == 0){
         sec+=1
     }
+    windowObject1.UpdateFrame();
+    windowObject2.UpdateFrame();
+    windowObject3.UpdateFrame();        
 
     var pos = myCharacter.onFrame(fps); //update frame, and get position
     pos = [pos.x,500-pos.y]; //fix position
