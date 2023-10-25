@@ -36,7 +36,7 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
     //main character
     var characterSpriteSheet = new Image();
     characterSpriteSheet.src = "/Group/images/Game/walking-sprite.png";
-    var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[200,266],[250,500],5,1);
+    var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[100,133],[0,500],5,1);
 
     //backgrounds
         //apartment background
@@ -78,8 +78,11 @@ function frame(){ //when a frame is updated
     pos = [pos.x,500-pos.y]; //fix position
     myCharacterObject.OverridePosition(pos); //update objects
     
+    console.log(pos)
+    myCharacterObject.pos = 450
+
     if(currentFrame % Math.round(fps/4) == 0){
-        if (myCharacter.moving == false && myCharacter.directionY == 0){ //if moving, and not jumping or crouching
+        if (myCharacter.moving == true && myCharacter.directionY == 0){ //if moving, and not jumping or crouching
             myCharacterObject.UpdateFrame();
         }
     }
@@ -89,14 +92,17 @@ function frame(){ //when a frame is updated
 
     //draw frame
     var ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,500,500);
+    ctx.clearRect(0,0,500,500);    
+
      //draw windows
     windowObject1.draw(ctx,[0,0]);
     windowObject2.draw(ctx,[0,0]);
     windowObject3.draw(ctx,[0,0]);
     //draw background second
-    backgroundObject.draw(ctx,[0,0])
-   
+    backgroundObject.draw(ctx,[0,0]);
+    //draw character 
+    myCharacterObject.draw(ctx,[0,0])
+
     //run function again
     setTimeout(function() {
         if(active==true){
