@@ -1,0 +1,139 @@
+---
+comments: False
+layout: post
+title: Testing2
+description: Testing out mainroom with scrolling and door interactivity
+type: plans
+courses: {'compsci': {'week': 6}}
+categories: ['C4.1']
+---
+
+
+<style>
+    .container{
+        display:block;
+        background-color:white;
+    }
+</style>
+<canvas id="display" class="container" height="500px" width="500px"></canvas>
+
+<script type="module">
+//import needed modules
+import Character from "/Group/myScripts/GameScripts/CharacterMovement.js";
+import Object from "/Group/myScripts/GameScripts/CreateObject.js";
+import light from "/Group/myScripts/GameScripts/Lights.js";
+import {Display, subDisplay} from "/Group/myScripts/GameScripts/Displays.js";
+
+//define canvas
+var canvas = document.getElementById("display");
+var hiddenCanvas = document.createElement("canvas");
+hiddenCanvas.setAttribute("width","500px");
+hiddenCanvas.setAttribute("height","500px");
+hiddenCanvas.setAttribute("willReadFrequently",true);
+
+//bind inputs to a controller
+var myCharacter = new Character();
+document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
+document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
+
+//create objects
+    //main character
+    var characterSpriteSheet = new Image();
+    characterSpriteSheet.src = "/Group/images/Game/walking-sprite.png";
+    var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[200,266],[250,500],5,1);
+    //backgrounds
+        //apartment bedroom background
+        var backgroundImage = new Image();
+        backgroundImage.src = "/Group/images/Game/room1update.png";
+        var backgroundObject = new Object("background",backgroundImage,[600,200],[1500,500],[0,500],1,1,[0,0])
+        //bedroom
+
+        //door
+        var doorImage = new Image();
+        doorImage.src = "/Group/images/Game/apartmentdoor.png";
+        var doorObject = new Object("door",doorImage,[25,45],[185,310],[1145,500],1,1);
+
+        //
+
+    //lighting
+    var lightingSprite = new Image();
+    lightingSprite.src = "/Group/images/Game/ShadingV3.png";
+    var lightObject = new Object("light",lightingSprite,[500,500],[500,500],[0,0],1,1);
+
+    //neighbor
+
+    //boxes
+        //small boxes
+        var boxImage = new Image();
+        boxImage.src = "/Group/images/Game/box1.png";
+        var boxObject1 = new Object("box",boxImage,[20,16],[100,80],[500,500],1,1);
+        var boxObject2 = new Object("box",boxImage,[20,16],[100,80],[725,500],1,1);
+        //stacked boxes
+        var boxstackImage = new Image();
+        boxstackImage.src = "/Group/images/Game/box2.png"
+        var boxstackObject1= new Object("box",boxstackImage,[20,28],[120,168],[850,500],1,1);
+        var boxstackObject2= new Object("box",boxstackImage,[20,28],[100,140],[575,500],1,1);
+
+    //text
+
+var display = new subDisplay(canvas,[backgroundObject,doorObject,boxstackObject2,boxObject2,myCharacterObject,boxObject1,boxstackObject1]);
+
+var fps = 24;
+var active = true;
+var animId;
+var currentFrame = 0;
+var sec = 0;
+function frame(){ //when a frame is updated
+    currentFrame = (currentFrame+1)%fps;
+    if (currentFrame == 0){sec+=1}
+
+    var pos = myCharacter.onFrame(fps); //update frame, and get position
+    pos = [pos.x,500-pos.y]; //fix position
+
+    console.log(pos)
+
+    if(pos[0]>=-64 && pos[0]<1360){
+    myCharacterObject.OverridePosition(pos); //update character position
+    if(myCharacter.moving == true){ //if charavter is moving then animate
+        if (currentFrame % Math.round(fps/12)==0){
+        myCharacterObject.UpdateFrame()
+        }
+    }
+    }
+    else{
+        if(pos[0]<-64){
+            myCharacter.position = {x:-64,y:0}
+        }
+        else{
+            myCharacter.position = {x:1360,y:0}
+        }
+    }
+
+    if (pos[0]>=0 && pos[0]<1000){
+    display.OverrideScroll([-pos[0],0]); //scroll everything
+    lightObject.UpdateCameraScroll([-pos[0],0])
+    }
+    if(currentFrame % Math.round(fps/4)==0){ //update lighting
+        light([[50,15,2.5],[450,15,2.5],[850,15,2.5],[1250,15,2.5]],lightObject,hiddenCanvas,true)
+    } 
+
+    display.draw(1); //type 1 = with camera offset, type 2 = without camera offset
+
+    canvas.getContext("2d").drawImage(hiddenCanvas,0,0); //draw shadows overtop
+
+    //run function again
+    setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
+}
+
+//canvas.addEventListener("mousemove", function(e){
+//    var scale = lightObject.ReturnScale();
+//    lightObject.OverridePosition([e.offsetX-scale[0]/2,e.offsetY+scale[1]/2])
+//});
+window.addEventListener('keydown', function(e) { //prevent space from moving screen
+  if(e.keyCode == 32 && e.target == document.body) {
+    e.preventDefault();
+  }
+});
+
+frame();
+</script>
