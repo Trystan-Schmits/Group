@@ -50,26 +50,20 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
     //windows
     var windowSpriteSheet = new Image();
     windowSpriteSheet.src = "/Group/images/Game/window-rain-sprite.png";
-    var windowObject1 = new Object("window", windowSpriteSheet,[100,100],[152,180],[7,174],23,1);
-    var windowObject2 = new Object("window", windowSpriteSheet,[100,100],[152,180],[175,174],23,1);
-    var windowObject3 = new Object("window", windowSpriteSheet,[100,100],[152,180],[337,174],23,1);
+    var windowObject1 = new Object("window", windowSpriteSheet,[100,100],[152,180],[7,174],22,1);
+    var windowObject2 = new Object("window", windowSpriteSheet,[100,100],[152,180],[175,174],22,1);
+    var windowObject3 = new Object("window", windowSpriteSheet,[100,100],[152,180],[337,174],22,1);
+    windowObject1.UpdateFrame(1);
+    windowObject2.UpdateFrame(4);
+    windowObject3.UpdateFrame(7);
 
     //text
 
-var fps = 23;
+var fps = 24;
 var active = true;
 var animId;
 var currentFrame = 0;
 var sec = 0;
-
-//variable to track current window frame
-var windowSpriteFrame = 0;
-var windowSpriteTotalFrames = 23;
-
-//update window sprite
-function updateWindowSpriteFrame() {
-        windowSpriteFrame = (windowSpriteFrame + 1) % windowSpriteTotalFrames;
-    }
 
 function frame(){ //when a frame is updated
     currentFrame = (currentFrame+1)%fps;
@@ -97,9 +91,9 @@ function frame(){ //when a frame is updated
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
      //draw windows
-    windowObject1.draw(ctx,[0,0],windowSpriteFrame);
-    windowObject2.draw(ctx,[0,0],windowSpriteFrame);
-    windowObject3.draw(ctx,[0,0],windowSpriteFrame);
+    windowObject1.draw(ctx,[0,0]);
+    windowObject2.draw(ctx,[0,0]);
+    windowObject3.draw(ctx,[0,0]);
     //draw background second
     backgroundObject.draw(ctx,[0,0])
    
