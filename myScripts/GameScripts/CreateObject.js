@@ -80,7 +80,7 @@ class CreateObject{
 
         //draw
         ctx.drawImage(this.image,this.frame*this.SpriteSize[0],s1*this.SpriteSize[1],this.SpriteSize[0],this.SpriteSize[1],0,0,this.scale[0]*reScale,-1*this.scale[1]*reScale);
-
+        
         //undo transformations for next objects
         ctx.rotate(-a);
         ctx.translate(-x,-y);

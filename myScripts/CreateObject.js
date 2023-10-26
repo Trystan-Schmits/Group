@@ -8,7 +8,6 @@ class CreateObject{
         this.state = 0;
         this.maxFrames = maxFrames;
         this.maxState = states;
-        this.visible = true;
     }
 
     ReturnPosition(){
