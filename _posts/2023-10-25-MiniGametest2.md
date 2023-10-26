@@ -100,6 +100,9 @@ function frame(){ //when a frame is updated
     if (pos[1] < 240) {
         pos[1] = 240;
     }
+     if (pos[1] > 500) {
+        pos[1] = 500;
+    }
     if (pos[0] < -32) {
         pos[0] = -32;
     }
