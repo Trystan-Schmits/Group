@@ -42,13 +42,13 @@ var characterYSpeed = 0; // Vertical speed of the character
 //create objects
     //main character
     var characterSpriteSheet = new Image();
-    characterSpriteSheet.src = "/Group/images/Game/minigmame_player.png";
+    characterSpriteSheet.src = "/Group/images/Game/walking-sprite.png";
     var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[100,133],[0,500],5,1);
 
     //potato monster
     var monsterSpriteSheet = new Image();
     monsterSpriteSheet.src = "/Group/images/Game/potatowalking-sprite.png";
-    var monsterObject = new Object("potato", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,400],4,1);
+    var monsterObject = new Object("potato", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,250],4,1);
     monsterObject.UpdateFrame();
 
     //backgrounds
@@ -82,7 +82,7 @@ var characterYSpeed = 0; // Vertical speed of the character
 
 var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject]);
 
-var fps = 24;
+var fps = 22;
 var active = true;
 var animId;
 var currentFrame = 0;
@@ -132,8 +132,6 @@ function frame(){ //when a frame is updated
         var newY = monsterY + monsterSpeed * Math.sin(angle);
         monsterObject.OverridePosition([newX, newY]);
     }
-
-
 
     console.log(pos)
 
