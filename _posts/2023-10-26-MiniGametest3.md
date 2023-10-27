@@ -15,6 +15,8 @@ categories: ['C4.1']
     }
 </style>
 <canvas id="display" class="container" height="500px" width="500px"></canvas>
+<button id="startButton">Start</button>
+    <audio id="audio" src="/Group/audio/rainwindow.mp3" preload="auto"></audio>
 
 <script type="module">
 //import needed modules
@@ -195,5 +197,14 @@ function frame(){ //when a frame is updated
 //    lightObject.OverridePosition([e.offsetX-scale[0]/2,e.offsetY+scale[1]/2])
 //});
 
-frame();
+ let isCanvasCodeInitialized = false;
+// Add a click event listener to the button
+startButton.addEventListener("click", function () {
+    if (!isCanvasCodeInitialized) {
+        // Run the canvas code only when the button is clicked
+        audio.play();
+        frame();
+        isCanvasCodeInitialized = true;
+    }
+});
 </script>
