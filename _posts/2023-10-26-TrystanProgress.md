@@ -8,7 +8,7 @@ courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
 permalink: /projectSummary/Trystan
 ---
-{% include nav_basics.html %}
+{% include Documentation_basics.html %}
 
 # Introduction
 - Code <br>
