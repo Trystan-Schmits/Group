@@ -79,7 +79,6 @@ function frame(){ //when a frame is updated
     myCharacterObject.OverridePosition(pos); //update objects
     
     console.log(pos)
-    myCharacterObject.pos = 450
 
     if(currentFrame % Math.round(fps/4) == 0){
         if (myCharacter.moving == true && myCharacter.directionY == 0){ //if moving, and not jumping or crouching
@@ -94,7 +93,7 @@ function frame(){ //when a frame is updated
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);    
 
-     //draw windows
+    //draw windows
     windowObject1.draw(ctx,[0,0]);
     windowObject2.draw(ctx,[0,0]);
     windowObject3.draw(ctx,[0,0]);
