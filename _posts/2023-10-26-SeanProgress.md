@@ -2,7 +2,7 @@
 comments: False
 layout: post
 title: Documentation
-description: Sean's progress on game
+description: How our game works
 type: tangibles
 courses: {'compsci': {'week': 7}}
 categories: ['C4.1']

@@ -42,7 +42,7 @@ var characterYSpeed = 0; // Vertical speed of the character
 //create objects
     //main character
     var characterSpriteSheet = new Image();
-    characterSpriteSheet.src = "/Group/images/Game/walking-sprite.png";
+    characterSpriteSheet.src = "/Group/images/Game/minigmame_player.png";
     var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[100,133],[0,500],5,1);
 
     //potato monster
