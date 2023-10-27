@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame Testing 2
+title: Minigame Testing 3
 description: Testing out mini game room with scrolling and elevator interactivity
 type: hacks
 courses: {'compsci': {'week': 6}}
