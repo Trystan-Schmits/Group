@@ -2,7 +2,7 @@
 comments: False
 layout: post
 title: Documentation
-description: How our game works
+description: Sean's progress on game
 type: tangibles
 courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
@@ -11,9 +11,9 @@ permalink: /projectSummary/Sean
 {% include nav_basics.html %}
 
 # Introduction
-- Art 
 I drew most of the art for the game using pixilart.com. I used the same website to create many of the sprite sheets for the game. 
-- Code 
+
+# Code
 I worked on the minigame and bedroom of game. I added in the lights, boxes, and door to the bedroom using code.
 
 - Objects 
@@ -86,19 +86,17 @@ var pos = myCharacter.onFrame(fps); //update frame, and get position
 ```
 This checks where the character is, and if they are too far left (if (pos[0]) < -32) then they cannot walk any further. Same for moving up past the floor line, (if (pos[1] < 240)) then they can only walk left, right, or down. [1] means y axis, [0] means x axis.  
 
-# Code
-
 # Drawings
-![office](/Group/images/officeroom4.png)
+![office](/Group/images/Game/officeroom4.png)
 
-![bedroom](/Group/images/room1update.png)
+![bedroom](/Group/images/Game/room1update.png)
 
-![rain on window](/Group/images/window-rain-sprite.png)
+![rain on window](/Group/images/Game/window-rain-sprite.png)
 
-![potato walking](/Group/images/potatowalking-sprite.png)
+![potato walking](/Group/images/Game/potatowalking-sprite.png)
 
-![potato ambient](/Group/images/potatoambient-sprite.png)
+![potato ambient](/Group/images/Game/potatoambient-sprite.png)
 
-![man walking](/Group/images/walking-sprite.png)
+![man walking](/Group/images/Game/walking-sprite.png)
 
-![squid ambient](/Group/images/squidambient-sprite.png)
+![squid ambient](/Group/images/Game/squidambient-sprite.png)
