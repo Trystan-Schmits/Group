@@ -8,7 +8,7 @@ courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
 permalink: /projectSummary/Spencer
 ---
-{% include nav_basics.html %}
+{% include Documentation_basics.html %}
 
 # Introduction
 - Art 
