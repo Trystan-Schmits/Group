@@ -2,7 +2,7 @@
 comments: False
 layout: post
 title: Minigame Testing 3
-description: Testing out mini game room with scrolling and elevator interactivity
+description: Adding interactivity and monster to minigame
 type: hacks
 courses: {'compsci': {'week': 6}}
 categories: ['C4.1']
@@ -44,6 +44,13 @@ var characterYSpeed = 0; // Vertical speed of the character
     var characterSpriteSheet = new Image();
     characterSpriteSheet.src = "/Group/images/Game/minigmame_player.png";
     var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[100,133],[0,500],5,1);
+
+    //potato monster
+    var monsterSpriteSheet = new Image();
+    monsterSpriteSheet.src = "/Group/images/Game/potatowalking-sprite.png";
+    var monsterObject = new Object("potato", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,400],4,1);
+    monsterObject.UpdateFrame();
+
     //backgrounds
         //windows
         var windowSpriteSheet = new Image();
@@ -71,12 +78,9 @@ var characterYSpeed = 0; // Vertical speed of the character
 
         //
 
-   
-    //neighbor
-
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject]);
 
 var fps = 24;
 var active = true;
@@ -94,6 +98,9 @@ function frame(){ //when a frame is updated
     windowObject4.UpdateFrame();    
     windowObject5.UpdateFrame();
 
+    //run monster walking animation
+    monsterObject.UpdateFrame();
+
     var pos = myCharacter.onFrame(fps); //update frame, and get position
     pos = [pos.x,500-pos.y]; //fix position
     // Add a conditional check to limit the character's y-coordinate
@@ -106,6 +113,26 @@ function frame(){ //when a frame is updated
     if (pos[0] < -32) {
         pos[0] = -32;
     }
+
+    // Calculate the distance between the character and the monster
+    var characterX = pos[0];
+    var characterY = pos[1];
+    var monsterX = monsterObject.position[0];
+    var monsterY = monsterObject.position[1];
+    var deltaX = characterX - monsterX;
+    var deltaY = characterY - monsterY;
+    var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    // Define a speed at which the monster follows the character
+    var monsterSpeed = 2; // You can adjust this value as needed
+
+    if (distance > monsterSpeed) {
+        var angle = Math.atan2(deltaY, deltaX);
+        var newX = monsterX + monsterSpeed * Math.cos(angle);
+        var newY = monsterY + monsterSpeed * Math.sin(angle);
+        monsterObject.OverridePosition([newX, newY]);
+    }
+
 
 
     console.log(pos)
@@ -125,11 +152,14 @@ function frame(){ //when a frame is updated
     //draw background second
     backgroundObject.draw(ctx,[0,0]);
 
+     //draw elevator
+    elevatorObject.draw(ctx,[0,0]);
+
+      //draw monster 
+    monsterObject.draw(ctx,[0,0]);
+
     //draw character 
     myCharacterObject.draw(ctx,[0,0]);
-
-    //draw elevator
-    elevatorObject.draw(ctx,[0,0]);
 
     //console.log(pos)
 
