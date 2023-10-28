@@ -126,7 +126,7 @@ function frame(){ //when a frame is updated
     var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
     // Define a speed at which the monster follows the character
-    var monsterSpeed = 2; // You can adjust this value as needed
+    var monsterSpeed = 3;
 
     if (distance > monsterSpeed) {
         var angle = Math.atan2(deltaY, deltaX);
@@ -136,7 +136,6 @@ function frame(){ //when a frame is updated
     }
 
     console.log(pos)
-
 
     //draw frame
     var ctx = canvas.getContext("2d");
