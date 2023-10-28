@@ -8,7 +8,7 @@ courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
 permalink: /projectSummary/Sean
 ---
-{% include nav_basics.html %}
+{% include Documentation_basics.html %}
 
 # Introduction
 I drew most of the art for the game using pixilart.com. I used the same website to create many of the sprite sheets for the game. 
