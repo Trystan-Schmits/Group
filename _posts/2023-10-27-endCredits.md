@@ -6,7 +6,6 @@ description: For the end of the game
 type: tangibles
 courses: {'compsci': {'week': 6}}
 categories: ['C4.1']
-permalink: /tangibles/credits
 ---
 
 <html>
