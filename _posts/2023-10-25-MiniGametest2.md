@@ -107,9 +107,7 @@ function frame(){ //when a frame is updated
         pos[0] = -32;
     }
 
-
     console.log(pos)
-
 
     //draw frame
     var ctx = canvas.getContext("2d");

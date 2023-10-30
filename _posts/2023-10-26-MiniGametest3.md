@@ -16,7 +16,7 @@ categories: ['C4.1']
 </style>
 <canvas id="display" class="container" height="500px" width="500px"></canvas>
 <button id="startButton">Start</button>
-    <audio id="audio" src="/Group/audio/rainwindow.mp3" preload="auto"></audio>
+<audio id="audio" src="/Group/audio/rainonwindow.mp3" preload="auto" loop="true"></audio>
 
 <script type="module">
 //import needed modules
