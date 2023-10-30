@@ -36,7 +36,7 @@ categories: ['C4.1']
         }
         else{ //if the object exists
             for(const [key,value] of Object.entries(modifiers)){ //loop through entries
-                ctx[key]=value; //set the contexts change (ex:{fillStyle:"red"} will set ctx.fillStyle to red)
+                ctx[key]=value; //set the context changes (ex:{fillStyle:"red"} will set ctx.fillStyle to red)
             } 
         }
         ctx.fillText(text,xOffset,scrollY-yOffset); //draw text at middle, and draw y with scroll and offset
