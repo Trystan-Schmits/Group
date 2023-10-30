@@ -3,7 +3,7 @@ comments: False
 layout: post
 title: Spencer's Documentation
 description: Documentation of what Spencer has done.
-type: tangibles
+type: tangibless
 courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
 permalink: /projectSummary/Spencer
