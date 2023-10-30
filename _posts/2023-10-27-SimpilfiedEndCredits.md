@@ -26,7 +26,8 @@ categories: ['C4.1']
     var scrollY = 0;
 
     // Credits Text
-    function text(text, yOffset, modifiers) {
+    function text(text, yOffset, modifiers, xOffset) {
+        if (xOffset == null){xOffset = canvas.width/2};
         ctx.restore();
         if (modifiers == null){ //default
             ctx.font = "14px Arial";
@@ -38,7 +39,7 @@ categories: ['C4.1']
                 ctx[key]=value; //set the contexts change (ex:{fillStyle:"red"} will set ctx.fillStyle to red)
             } 
         }
-        ctx.fillText(text,canvas.width/2,scrollY-yOffset); //draw text at middle, and draw y with scroll and offset
+        ctx.fillText(text,xOffset,scrollY-yOffset); //draw text at middle, and draw y with scroll and offset
     };
     function addText() { //Text,Offset
         text("Created By", 0);
