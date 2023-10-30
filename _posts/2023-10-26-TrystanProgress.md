@@ -15,6 +15,32 @@ permalink: /projectSummary/Trystan
 I did a lot of code. I made most of the classes and functions (objects) that we used throughout the game.
 
 ## "Object" Class
+<style>
+    .container{
+        display:block;
+        background-color:white;
+    }
+</style>
+<canvas id="drawOnMe" class="container" width="100px" height="100px"></canvas>
+<script type="module">
+    import Object from "/Group/myScripts/GameScripts/CreateObject.js";
+    var SquidSprite = new Image();
+    SquidSprite.src = "/Group/images/Game/squidambient-sprite.png";
+    var squidObject = new Object("character", SquidSprite ,[190,175],[90,90],[5,95],4,1);
+    var currentFrame = 0;
+    var ctx = document.getElementById("drawOnMe").getContext("2d");
+    function frame(){
+        currentFrame = (currentFrame+1)%24;
+        if(currentFrame % 6 == 0){
+            squidObject.UpdateFrame()
+            ctx.clearRect(0,0,100,100)
+            squidObject.draw(ctx,[0,0]);
+        }  
+    }
+    setInterval(function(){requestAnimationFrame(frame)}, 1000 / 24);
+</script>
+<br>
+
 ```
 class CreateObject{
     constructor(Name,SpriteSheet,SpriteScale,DrawScale,position,maxFrames,states,cameraScroll){
@@ -159,6 +185,54 @@ There is another similar function called **drawWithCameraScroll**. It is basical
 
 
 ## Character Movement
+The y position isn't used/changed.
+<svg width="300px" height="100px">
+    <polyline id="left" points="0,50 75,0 75,100" style="fill:black;" />
+    <polyline id="right" points="300,50 225,0 225,100" style="fill:black;" />
+    <rect id="dirLeft" x="90" y="0" width="60"  height="100" style="fill:black;" />
+    <rect id="dirRight" x="150" y="0" width="60" height="100" style="fill:black;" />
+    <circle id="moving" cx="150" cy="50" r="45" style="fill:darkgrey;" />
+    <text id="pos" x="125" y="55" style="font:20px Arial; fill:white; text-align:center" >[0,0]</text>
+</svg>
+<script type="module">
+import Movement from "/Group/myScripts/GameScripts/CharacterMovement.js";
+function update(){
+    if(myMovement.directionX == 1){
+        document.getElementById("dirRight").style.fill = "lightcoral";
+        document.getElementById("dirLeft").style.fill = "black";
+        document.getElementById("left").style.fill = "black";
+        if(myMovement.moving == true){
+            document.getElementById("right").style.fill = "lightblue";
+            document.getElementById("moving").style.fill = "lightgreen";
+        }
+        else{
+            document.getElementById("right").style.fill = "black";
+            document.getElementById("moving").style.fill = "darkgrey";
+        }
+    }
+    else{
+        document.getElementById("dirLeft").style.fill = "lightcoral";
+        document.getElementById("dirRight").style.fill = "black";
+        document.getElementById("right").style.fill = "black";
+        if(myMovement.moving == true){
+            document.getElementById("left").style.fill = "lightblue";
+            document.getElementById("moving").style.fill = "lightgreen";
+        }
+        else{
+            document.getElementById("left").style.fill = "black";
+            document.getElementById("moving").style.fill = "darkgrey";
+        }
+    }
+    var pos = myMovement.position;
+    document.getElementById("pos").textContent = "["+String(pos.x)+","+String(pos.y)+"]";
+}
+var myMovement = new Movement();
+document.addEventListener("keydown",function(event){myMovement.handleKeydown(event); update()});
+document.addEventListener("keyup",function(event){myMovement.handleKeyup(event); update()});
+setInterval(function(){myMovement.onFrame(24)},1000/24);
+</script>
+<br>
+
 ```
 class Movement{
     //up = "KeyW"; //default keybinds for controls
@@ -236,7 +310,7 @@ class Movement{
     }
 }
 ```
-This class handles most of the inputs, and does corresponding actions. "Movement"
+This class handles most of the inputs, and does corresponding actions. "Movement".
 
 1. 
 ```
@@ -300,6 +374,104 @@ handleKeydown(event){
 These 2 functions should be binded to keyDown and keyUp events respectively. They look at the inputs that are given, then change variables, like the direction that the object is facing.
 
 ## Display
+<style>
+    .container3{
+        display:block;
+        background-color:white;
+        width:200px;
+        height:200px;
+    }
+    .container2{
+        width:50px;
+        height:50px;
+        display:inline-block;
+        background-color:white;
+    }
+</style>
+<canvas id="mainDisplay" class="container3" height="500px" width="500px"></canvas>
+<br>
+<canvas id="subDisplay" class="container2" height="500px" width="500px"></canvas>
+<div></div>
+<canvas id="subDisplay1" class="container2" height="500px" width="500px"></canvas>
+<canvas id="subDisplay2" class="container2" height="500px" width="500px"></canvas>
+<button id="switch">switch</button>
+<script type="module">
+//import needed modules
+import Controller from "/Group/myScripts/GameScripts/CharacterMovement.js";
+import Object from "/Group/myScripts/GameScripts/CreateObject.js";
+import light from "/Group/myScripts/GameScripts/Lights.js";
+import {Display,subDisplay} from "/Group/myScripts/GameScripts/Displays.js"
+var canvas = document.getElementById("mainDisplay");
+var subCanvas = document.getElementById("subDisplay");
+var subCanvas1 = document.getElementById("subDisplay1");
+var subCanvas2 = document.getElementById("subDisplay2")
+var myCharacter = new Controller();
+document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
+document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
+var characterSpriteSheet = new Image();
+characterSpriteSheet.src = "/Group/images/Game/squidambient-sprite.png";
+var myCharacterObject = new Object("character", characterSpriteSheet,[190,175],[190,175],[250,500],4,1);
+var redPixelSprite = new Image();
+redPixelSprite.src = "/Group/images/Game/redPixel.png"
+var redObject = new Object ("background1",redPixelSprite,[1,1],[100,500],[0,500],1,1);
+var redObject2 = new Object ("background3", redPixelSprite,[1,1],[100,500],[200,500],1,1);
+var redObject3 = new Object ("background5", redPixelSprite,[1,1],[100,500],[400,500],1,1);
+var whitePixelSprite = new Image();
+whitePixelSprite.src = "/Group/images/Game/whitePixel.png"
+var whiteObject = new Object ("background 2",whitePixelSprite,[1,1],[100,500],[100,500],1,1);
+var whiteObject2 = new Object ("background 4",whitePixelSprite,[1,1],[100,500],[300,500],1,1);
+var lightingSprite = new Image();
+lightingSprite.src = "/Group/images/Game/ShadingV3.png";
+var lightObject = new Object("light",lightingSprite,[500,500],[500,500],[0,0],1,1);
+var subDisplay1 = new subDisplay(subCanvas,[redObject,whiteObject,redObject2,whiteObject2,redObject3]);
+subDisplay1.OverrideScroll([0,0]);
+var subDisplay2 = new subDisplay(subCanvas1,[myCharacterObject]);
+subDisplay2.OverrideScroll([0,0]);
+var subDisplay3 = new subDisplay(subCanvas2);
+var MainDisplay = new Display(canvas,subDisplay1);
+var currentFrame = 0;
+var sec = 0;
+var active = true; //set to false to stop all animation
+var fps = 24;
+function frame(){
+    currentFrame = (currentFrame+1)%fps;
+    if (currentFrame == 0){sec+=1};
+    if (bool == false){ //if display with person is active
+    var pos = myCharacter.onFrame(fps); //update frame, and get position
+    pos = [pos.x,500-pos.y]; //fix position
+    myCharacterObject.OverridePosition(pos); //update character Position
+    }
+    if(currentFrame % Math.round(fps/4)==0){ //update lighting every 1/4 sec
+        light([[400,500,.5],[100,250,1],[400,100,1]],lightObject,subCanvas2,false);
+    }
+    subDisplay2.draw(1); //update SubCanvas (without offset)
+    MainDisplay.draw(1); //update Main Canvas
+setTimeout(function() {if(active == true){requestAnimationFrame(frame)}}, 1000 / fps);
+}
+var bool = true;
+function Switch(){
+        if(bool==false){
+            MainDisplay.setActiveDisplay(subDisplay1);
+            bool = true;
+        }
+        else{
+           MainDisplay.setActiveDisplay([subDisplay2,subDisplay3]);
+            bool = false; 
+        }
+}
+document.getElementById("switch").addEventListener("click",Switch)
+window.addEventListener("load",function(){
+    subDisplay1.draw(0);
+    var ctx = subDisplay1.canvas.getContext("2d");
+    ctx.font = "bold 80px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center"
+    ctx.fillText("Displays!",250,250)
+    }) //wait for window to load then draw static canvas
+frame(); //run frame
+</script>
+<br>
+
 ```
 class Display{
     
