@@ -24,6 +24,10 @@ import Character from "/Group/myScripts/GameScripts/MinigameCharacterMovement.js
 import Object from "/Group/myScripts/GameScripts/CreateObject.js";
 import {Display, subDisplay} from "/Group/myScripts/GameScripts/Displays.js";
 
+//define if the character is alive or not 
+var isCharacterAlive = true;
+
+
 //define canvas
 var canvas = document.getElementById("display");
 var hiddenCanvas = document.createElement("canvas");
@@ -49,8 +53,8 @@ var characterYSpeed = 0; // Vertical speed of the character
         //main character death
         var deathSpriteSheet = new Image();
         deathSpriteSheet.src = "/Group/images/Game/deathsprite.png";
-        var deathObject = new Object("death", deathSpriteSheet, [24,54],[100,133],[0,500],23,1);
-        var showdeathsprite = false;
+        var deathObject = new Object("death", deathSpriteSheet, [24,54],[54,133],[0,1500],23,1);
+        var showdeathObject = false;
 
     //potato monster
     var monsterSpriteSheet = new Image();
@@ -87,7 +91,7 @@ var characterYSpeed = 0; // Vertical speed of the character
 
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,deathObject,monsterObject]);
 
 var fps = 22;
 var active = true;
@@ -193,6 +197,11 @@ function frame(){ //when a frame is updated
         monsterObject.OverridePosition([newX, newY]);
     }
 
+     // Check for overlap between the character and the monster
+    if (checkForOverlap(myCharacterObject, monsterObject)) {
+        isCharacterAlive = false;
+    }
+
     //console.log(pos)
 
     //draw frame
@@ -200,7 +209,6 @@ function frame(){ //when a frame is updated
     ctx.clearRect(0,0,500,500); 
 
     //console.log(pos)
-
     if(pos[0]>=-64 && pos[0]<1008){
     myCharacterObject.OverridePosition(pos); //update character position
     if(myCharacter.movingX == true){ //if charavter is moving then animate
@@ -227,23 +235,36 @@ function frame(){ //when a frame is updated
     }
     if (checkForOverlap(myCharacterObject, monsterObject) || checkForOverlap(myCharacterObject, monsterObject)) {
     console.log("test");
-    showdeathsprite = true;
+    showdeathObject = true;
     }
 
     //console.log("fired")
 
     display.draw(1); //type 1 = with camera offset, type 2 = without camera offset
 
+    // Draw the character or death sprite based on isCharacterAlive
+    if (isCharacterAlive) {
+        display.draw(1); // Draw the character if it's alive
+    } else {
+        // Draw the "deathsprite.png" in the character's position
+        var characterPosition = myCharacterObject.ReturnPosition();
+        deathObject.OverridePosition(characterPosition);
+        deathObject.UpdateFrame();
+        display.draw(1); // Draw the death sprite
+    }
+
     canvas.getContext("2d").drawImage(hiddenCanvas,0,0); //draw shadows overtop
 
     // Drawing the death sprite
-    if (showdeathsprite) {
-        if (currentFrame % Math.round(fps/23)==0){
+    if (showdeathObject) {
+        if (currentFrame % Math.round(fps/2)==0){
         deathObject.UpdateFrame()
         }
     }
     //run function again
-    setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
+    setTimeout(function() {
+        if(active==true){
+            animId = requestAnimationFrame(frame)};}, 1000 / fps);
 }
 
 //canvas.addEventListener("mousemove", function(e){
