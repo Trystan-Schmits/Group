@@ -153,6 +153,10 @@ function frame(){ //when a frame is updated
     windowObject3.UpdateFrame();    
     windowObject4.UpdateFrame();    
     windowObject5.UpdateFrame();
+    if ((currentFrame % Math.round(fps/4)) == 0){
+    //run elevator frame
+    elevatorObject.UpdateFrame();
+    }
 
     //run monster walking animation
     monsterObject.UpdateFrame();
