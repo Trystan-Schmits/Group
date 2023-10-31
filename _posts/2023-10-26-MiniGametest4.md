@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame Testing 3
+title: Minigame Testing 4
 description: Adding interactivity and monster to minigame
 type: hacks
 courses: {'compsci': {'week': 6}}
