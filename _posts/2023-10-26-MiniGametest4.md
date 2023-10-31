@@ -50,11 +50,6 @@ var characterYSpeed = 0; // Vertical speed of the character
     var characterSpriteSheet = new Image();
     characterSpriteSheet.src = "/Group/images/Game/walking-sprite.png";
     var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[100,133],[0,500],5,1);
-        //main character death
-        var deathSpriteSheet = new Image();
-        deathSpriteSheet.src = "/Group/images/Game/deathsprite.png";
-        var deathObject = new Object("death", deathSpriteSheet, [24,54],[54,133],[0,1500],23,1);
-        var showdeathObject = false;
 
     //potato monster
     var monsterSpriteSheet = new Image();
@@ -91,7 +86,7 @@ var characterYSpeed = 0; // Vertical speed of the character
 
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,deathObject,monsterObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject]);
 
 var fps = 22;
 var active = true;
@@ -235,32 +230,14 @@ function frame(){ //when a frame is updated
     }
     if (checkForOverlap(myCharacterObject, monsterObject) || checkForOverlap(myCharacterObject, monsterObject)) {
     console.log("test");
-    showdeathObject = true;
     }
 
     //console.log("fired")
 
     display.draw(1); //type 1 = with camera offset, type 2 = without camera offset
 
-    // Draw the character or death sprite based on isCharacterAlive
-    if (isCharacterAlive) {
-        display.draw(1); // Draw the character if it's alive
-    } else {
-        // Draw the "deathsprite.png" in the character's position
-        var characterPosition = myCharacterObject.ReturnPosition();
-        deathObject.OverridePosition(characterPosition);
-        deathObject.UpdateFrame();
-        display.draw(1); // Draw the death sprite
-    }
-
     canvas.getContext("2d").drawImage(hiddenCanvas,0,0); //draw shadows overtop
 
-    // Drawing the death sprite
-    if (showdeathObject) {
-        if (currentFrame % Math.round(fps/2)==0){
-        deathObject.UpdateFrame()
-        }
-    }
     //run function again
     setTimeout(function() {
         if(active==true){
