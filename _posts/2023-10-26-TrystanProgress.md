@@ -3,24 +3,57 @@ comments: False
 layout: post
 title: Trystan
 description: How our game works
-type: tangibles
+type: tangibless
 courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
 permalink: /projectSummary/Trystan
 ---
 {% include Documentation_basics.html %}
 
-# Introduction
-- Code <br>
-I did a lot of code. I made most of the classes and functions (objects) that we used throughout the game.
+<body>
 
-## "Object" Class
+<style>
+.accordion {
+  background-color: #eee;
+  color: black;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: grey;
+  color: black;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+</style>
+
+<h1 id="introduction">Introduction</h1>
+<ul>
+  <li>Code <br />
+I did a lot of code. I made most of the classes and functions (objects) that we used throughout the game.</li>
+</ul>
+
+<h2 id="object-class">“Object” Class</h2>
 <style>
     .container{
         display:block;
         background-color:white;
     }
 </style>
+
 <canvas id="drawOnMe" class="container" width="100px" height="100px"></canvas>
 <script type="module">
     import Object from "/Group/myScripts/GameScripts/CreateObject.js";
@@ -39,10 +72,13 @@ I did a lot of code. I made most of the classes and functions (objects) that we 
     }
     setInterval(function(){requestAnimationFrame(frame)}, 1000 / 24);
 </script>
-<br>
 
-```
-class CreateObject{
+<p><br /></p>
+
+<button class="accordion">Code</button>
+<div class="panel">
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CreateObject{
     constructor(Name,SpriteSheet,SpriteScale,DrawScale,position,maxFrames,states,cameraScroll){
         this.name = Name;
         this.image = SpriteSheet;
@@ -131,68 +167,71 @@ class CreateObject{
         ctx.translate(-this.cameraScroll[0],-this.cameraScroll[1]);
     }
 }
-```
+</code></pre></div></div>
 
-This is the most important class I created. It is what is reposible for basically all of the drawing within our game. To split it apart:
+<p>This is the most important class I created. It is what is reposible for basically all of the drawing within our game. To split it apart:</p>
 
-1. The Constructor
-```
-constructor(Name,SpriteSheet,SpriteScale,DrawScale,position,maxFrames,states,cameraScroll){
-        this.name = Name;
-        this.image = SpriteSheet;
-        this.SpriteSize = SpriteScale; //size of each sprite
-        this.scale = DrawScale; // size of drawn image
-        this.position = position; //[x,y]
-        this.frame = 0;
-        this.state = 0;
-        this.maxFrames = maxFrames;
-        this.maxState = states;
-        this.cameraScroll = cameraScroll;
-        console.log(this)
-    }
-```
-The **constructor** is what assigns the variables when you create the object.
+<ol>
+  <li>The Constructor
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>constructor(Name,SpriteSheet,SpriteScale,DrawScale,position,maxFrames,states,cameraScroll){
+     this.name = Name;
+     this.image = SpriteSheet;
+     this.SpriteSize = SpriteScale; //size of each sprite
+     this.scale = DrawScale; // size of drawn image
+     this.position = position; //[x,y]
+     this.frame = 0;
+     this.state = 0;
+     this.maxFrames = maxFrames;
+     this.maxState = states;
+     this.cameraScroll = cameraScroll;
+     console.log(this)
+ }
+</code></pre></div>    </div>
+    <p>The <strong>constructor</strong> is what assigns the variables when you create the object.
 My object mainly includes: name, image, frame size, drawing size, and position these variables give most of the information when drawing objects to the canvas.
-The other variables are for other that are needed, for example the starting frame and starting state.
-
-2. draw
-```
-draw(ctx,scroll,rotation,reScale){
-        ctx.imageSmoothingEnabled = false;
-        if (rotation == null){rotation = 0};
-        if (reScale == null){ if(scroll[2]==null){reScale = 1}else{reScale=scroll[2]}};
-        var s1 = this.state;
-        var x = this.position[0]+scroll[0];
-        var y = this.position[1]+scroll[1];
-        var a = (rotation * Math.PI)/180; //convert to rad
+The other variables are for other that are needed, for example the starting frame and starting state.</p>
+  </li>
+  <li>draw
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>draw(ctx,scroll,rotation,reScale){
+     ctx.imageSmoothingEnabled = false;
+     if (rotation == null){rotation = 0};
+     if (reScale == null){ if(scroll[2]==null){reScale = 1}else{reScale=scroll[2]}};
+     var s1 = this.state;
+     var x = this.position[0]+scroll[0];
+     var y = this.position[1]+scroll[1];
+     var a = (rotation * Math.PI)/180; //convert to rad
         
-        //rotate object
-        ctx.translate(x,y);
-        ctx.rotate(a);
+     //rotate object
+     ctx.translate(x,y);
+     ctx.rotate(a);
 
-        //draw
-        ctx.drawImage(this.image,this.frame*this.SpriteSize[0],s1*this.SpriteSize[1],this.SpriteSize[0],this.SpriteSize[1],0,0,this.scale[0]*reScale,-1*this.scale[1]*reScale);
+     //draw
+     ctx.drawImage(this.image,this.frame*this.SpriteSize[0],s1*this.SpriteSize[1],this.SpriteSize[0],this.SpriteSize[1],0,0,this.scale[0]*reScale,-1*this.scale[1]*reScale);
 
-        //undo rotations for next objects
-        ctx.rotate(-a);
-        ctx.translate(-x,-y);
+     //undo rotations for next objects
+     ctx.rotate(-a);
+     ctx.translate(-x,-y);
 
-    }
-```
-This function **draw** is the main reason this class exists. With only 2 inputs (and more optional), you can draw the object object to the canvas without too much effort.
+ }
+</code></pre></div>    </div>
+    <p>This function <strong>draw</strong> is the main reason this class exists. With only 2 inputs (and more optional), you can draw the object object to the canvas without too much effort.</p>
+  </li>
+</ol>
 
-There is another similar function called **drawWithCameraScroll**. It is basically identical to the draw function, but it draws the object with an offset called "CameraScroll".
+<p>There is another similar function called <strong>drawWithCameraScroll</strong>. It is basically identical to the draw function, but it draws the object with an offset called “CameraScroll”.</p>
 
+</div>
+<br>
 
-## Character Movement
-The y position isn't used/changed.
+<h2 id="character-movement">Character Movement</h2>
+<p>The y position isn’t used/changed.</p>
 <svg width="300px" height="100px">
     <polyline id="left" points="0,50 75,0 75,100" style="fill:black;" />
     <polyline id="right" points="300,50 225,0 225,100" style="fill:black;" />
-    <rect id="dirLeft" x="90" y="0" width="60"  height="100" style="fill:black;" />
+    <rect id="dirLeft" x="90" y="0" width="60" height="100" style="fill:black;" />
     <rect id="dirRight" x="150" y="0" width="60" height="100" style="fill:black;" />
     <circle id="moving" cx="150" cy="50" r="45" style="fill:darkgrey;" />
-    <text id="pos" x="125" y="55" style="font:20px Arial; fill:white; text-align:center" >[0,0]</text>
+    <text id="pos" x="125" y="55" style="font:20px Arial; fill:white; text-align:center">[0,0]</text>
 </svg>
 <script type="module">
 import Movement from "/Group/myScripts/GameScripts/CharacterMovement.js";
@@ -231,10 +270,13 @@ document.addEventListener("keydown",function(event){myMovement.handleKeydown(eve
 document.addEventListener("keyup",function(event){myMovement.handleKeyup(event); update()});
 setInterval(function(){myMovement.onFrame(24)},1000/24);
 </script>
-<br>
 
-```
-class Movement{
+<p><br /></p>
+
+<button class="accordion">Code</button>
+<div class="panel">
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Movement{
     //up = "KeyW"; //default keybinds for controls
     right = "KeyD";
     left = "KeyA";
@@ -259,12 +301,12 @@ class Movement{
             x: Math.round(this.position.x+this.moving*this.speed*this.directionX*(1/fps)),
             y: this.position.y + (this.instantY*(1/fps))
         }
-        if(this.position.y<0){
+        if(this.position.y&lt;0){
             this.instantY = 0;
             this.directionY = 0;
             this.position.y = 0;
         }
-        if(this.position.y>0){
+        if(this.position.y&gt;0){
             this.instantY-=this.gravity*(1/fps);
         }
         return this.position;
@@ -309,71 +351,75 @@ class Movement{
         }
     }
 }
-```
-This class handles most of the inputs, and does corresponding actions. "Movement".
+</code></pre></div></div>
+<p>This class handles most of the inputs, and does corresponding actions. “Movement”.</p>
 
-1. 
-```
-onFrame(fps){
-        this.position = {
-            x: Math.round(this.position.x+this.moving*this.speed*this.directionX*(1/fps)),
-            y: this.position.y + (this.instantY*(1/fps))
-        }
-        if(this.position.y<0){
-            this.instantY = 0;
-            this.directionY = 0;
-            this.position.y = 0;
-        }
-        if(this.position.y>0){
-            this.instantY-=this.gravity*(1/fps);
-        }
-        return this.position;
+<ol>
+  <li>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onFrame(fps){
+    this.position = {
+        x: Math.round(this.position.x+this.moving*this.speed*this.directionX*(1/fps)),
+        y: this.position.y + (this.instantY*(1/fps))
     }
-```
-To simiplify this function, on each frame it checks what is currently pressed. Depending on the inputs, it does some calculations to tell you where the character will be located. Once finsihed it returns the new position of the object on that frame.
+    if(this.position.y&lt;0){
+        this.instantY = 0;
+        this.directionY = 0;
+        this.position.y = 0;
+    }
+    if(this.position.y&gt;0){
+        this.instantY-=this.gravity*(1/fps);
+    }
+    return this.position;
+}
+</code></pre></div>    </div>
+    <p>To simiplify this function, on each frame it checks what is currently pressed. Depending on the inputs, it does some calculations to tell you where the character will be located. Once finsihed it returns the new position of the object on that frame.</p>
+  </li>
+  <li>handleKey
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>handleKeydown(event){
+     event.preventDefault();
+     switch(event.code){
+         case this.down:
+             this.directionY = -1;
+             break;
+         case this.right:
+             this.directionX = 1;
+             this.moving = true;
+             break;
+         case this.left:
+             this.directionX = -1;
+             this.moving = true;
+             break;
+         //case this.jump:
+         //    if (this.position.y == 0){
+         //    this.instantY = 80;
+         //    this.directionY = 1;
+         //    }
+         //    break;
+     }
+ }
+ handleKeyup(event){
+     event.preventDefault();
+     switch(event.code){
+         case this.down:
+             this.directionY = 0;
+             break;
+         case this.right:
+             this.moving = false;
+             break;
+         case this.left:
+             this.moving = false;
+             break;
+     }
+ }
+</code></pre></div>    </div>
+    <p>These 2 functions should be binded to keyDown and keyUp events respectively. They look at the inputs that are given, then change variables, like the direction that the object is facing.</p>
+  </li>
+</ol>
 
-2. handleKey
-```
-handleKeydown(event){
-        event.preventDefault();
-        switch(event.code){
-            case this.down:
-                this.directionY = -1;
-                break;
-            case this.right:
-                this.directionX = 1;
-                this.moving = true;
-                break;
-            case this.left:
-                this.directionX = -1;
-                this.moving = true;
-                break;
-            //case this.jump:
-            //    if (this.position.y == 0){
-            //    this.instantY = 80;
-            //    this.directionY = 1;
-            //    }
-            //    break;
-        }
-    }
-    handleKeyup(event){
-        event.preventDefault();
-        switch(event.code){
-            case this.down:
-                this.directionY = 0;
-                break;
-            case this.right:
-                this.moving = false;
-                break;
-            case this.left:
-                this.moving = false;
-                break;
-        }
-    }
-```
-These 2 functions should be binded to keyDown and keyUp events respectively. They look at the inputs that are given, then change variables, like the direction that the object is facing.
+</div>
+<br>
 
-## Display
+<h2 id="display">Display</h2>
 <style>
     .container3{
         display:block;
@@ -388,13 +434,14 @@ These 2 functions should be binded to keyDown and keyUp events respectively. The
         background-color:white;
     }
 </style>
+
 <canvas id="mainDisplay" class="container3" height="500px" width="500px"></canvas>
-<br>
+<p><br /></p>
 <canvas id="subDisplay" class="container2" height="500px" width="500px"></canvas>
 <div></div>
 <canvas id="subDisplay1" class="container2" height="500px" width="500px"></canvas>
 <canvas id="subDisplay2" class="container2" height="500px" width="500px"></canvas>
-<button id="switch">switch</button>
+<p><button id="switch">switch</button>
 <script type="module">
 //import needed modules
 import Controller from "/Group/myScripts/GameScripts/CharacterMovement.js";
@@ -470,10 +517,12 @@ window.addEventListener("load",function(){
     }) //wait for window to load then draw static canvas
 frame(); //run frame
 </script>
-<br>
+<br /></p>
 
-```
-class Display{
+<button class="accordion">Code</button>
+<div class="panel">
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Display{
     
     constructor(canvas,displaysToDraw){
 
@@ -522,8 +571,30 @@ class subDisplay{
         }
     }
 }
-```
-These classes are the easiest ways to draw all the objects in the game. Without going into too much depth of the functions, they basically act as groupings that have an ability to its canvas.
+</code></pre></div></div>
+<p>These classes are the easiest ways to draw all the objects in the game. Without going into too much depth of the functions, they basically act as groupings that have an ability to its canvas.</p>
 
-## Overall
-Using the code above, and some optional extras, we were able to create most of the game. These functions were (mostly) made to work together. The object class was built for the basic function of drawing. Other functions and classes were made to support and use the objects to create the game. If you want a few more details about how they work together I recommend looking at the [Anatomy](/Group/projectSummary/anatomy) page.
+</div>
+<br>
+
+<h2 id="overall">Overall</h2>
+<p>Using the code above, and some optional extras, we were able to create most of the game. These functions were (mostly) made to work together. The object class was built for the basic function of drawing. Other functions and classes were made to support and use the objects to create the game. If you want a few more details about how they work together I recommend looking at the <a href="/Group/projectSummary/anatomy">Anatomy</a> page.</p>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    function onClick(){
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+    }
+  acc[i].addEventListener("click", onClick.bind(acc[i]));
+}
+</script>
+</body>

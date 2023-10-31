@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame test
+title: Minigame Testing 1
 description: Testing out minigame room with sprites
 type: hacks
 courses: {'compsci': {'week': 6}}

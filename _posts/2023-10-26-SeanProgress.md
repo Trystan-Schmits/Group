@@ -3,7 +3,7 @@ comments: False
 layout: post
 title: Documentation
 description: How our game works
-type: tangibles
+type: tangibless
 courses: {'compsci': {'week': 7}}
 categories: ['C4.1']
 permalink: /projectSummary/Sean
