@@ -24,12 +24,6 @@ import Character from "/Group/myScripts/GameScripts/MinigameCharacterMovement.js
 import Object from "/Group/myScripts/GameScripts/CreateObject.js";
 import {Display, subDisplay} from "/Group/myScripts/GameScripts/Displays.js";
 
-//define if the character is alive or not 
-var isCharacterAlive = true;
-var showCharacter = true;
-//track whether death animation has happened
-var deathAnimationTriggered = false;
-
 //define canvas
 var canvas = document.getElementById("display");
 var hiddenCanvas = document.createElement("canvas");
@@ -46,26 +40,12 @@ document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterY = 0; // Initial vertical position of the character
 var characterYSpeed = 0; // Vertical speed of the character
 
+
 //create objects
     //main character
     var characterSpriteSheet = new Image();
     characterSpriteSheet.src = "/Group/images/Game/walking-sprite.png";
     var myCharacterObject = new Object("character", characterSpriteSheet,[44,54],[100,133],[0,500],5,1);
-    if (isCharacterAlive === false){
-        //draw player
-    }
-        //main character death
-        var deathSpriteSheet = new Image();
-        deathSpriteSheet.src = "/Group/images/Game/deathsprite.png";
-        var deathObject = new Object("death", deathSpriteSheet, [24,54],[54,133],[0,1500],23,1);
-        var showdeathObject = false;
-
-        //character death fade 
-        var fadeSpriteSheet = new Image();
-        fadeSpriteSheet.src = "/Group/images/Game/deathscreenfade-sprite.png";
-        var fadeObject = new Object("fade",fadeSpriteSheet,[100,100],[1078,500],[0,500],50,1);
-        if (isCharacterAlive === false){
-        }
 
     //potato monster
     var monsterSpriteSheet = new Image();
@@ -91,7 +71,7 @@ var characterYSpeed = 0; // Vertical speed of the character
         //office background
         var backgroundImage = new Image();
         backgroundImage.src = "/Group/images/Game/officeroom4.png";
-        var backgroundObject = new Object("background",backgroundImage,[394,175],[1078,500],[0,500],1,1,[0,0]);
+        var backgroundObject = new Object("background",backgroundImage,[394,175],[1078,500],[0,500],1,1,[0,0])
 
         //elevator 
         var elevatorSpriteSheet = new Image();
@@ -102,62 +82,13 @@ var characterYSpeed = 0; // Vertical speed of the character
 
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject,fadeObject,deathObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject]);
 
 var fps = 22;
 var active = true;
 var animId;
 var currentFrame = 0;
 var sec = 0;
-function checkForOverlap(object1, object2) {
-    var pos1 = object1.ReturnPosition().slice();
-    var scale1 = object1.ReturnScale().slice();
-    var xRange1 = [pos1[0], pos1[0] + scale1[0]];
-    var yRange1 = [pos1[1], pos1[1] + scale1[1]];
-
-    var pos2 = object2.ReturnPosition().slice();
-    var scale2 = object2.ReturnScale().slice();
-    var xRange2 = [pos2[0], pos2[0] + scale2[0]];
-    var yRange2 = [pos2[1], pos2[1] + scale2[1]];
-
-    if (
-        xRange1[0] >= xRange2[0] &&
-        xRange1[0] <= xRange2[1] &&
-        yRange1[0] >= yRange2[0] &&
-        yRange1[0] <= yRange2[1]
-    ) {
-        return true;
-    }
-
-    if (
-        xRange1[0] >= xRange2[0] &&
-        xRange1[0] <= xRange2[1] &&
-        yRange1[1] >= yRange2[0] &&
-        yRange1[1] <= yRange2[1]
-    ) {
-        return true;
-    }
-
-    if (
-        xRange1[1] >= xRange2[0] &&
-        xRange1[1] <= xRange2[1] &&
-        yRange1[0] >= yRange2[0] &&
-        yRange1[0] <= yRange2[1]
-    ) {
-        return true;
-    }
-
-    if (
-        xRange1[1] >= xRange2[0] &&
-        xRange1[1] <= xRange2[1] &&
-        yRange1[1] >= yRange2[0] &&
-        yRange1[1] <= yRange2[1]
-    ) {
-        return true;
-    }
-
-    return false;
-}
 function frame(){ //when a frame is updated
     currentFrame = (currentFrame+1)%fps;
     if (currentFrame == 0){sec+=1}
@@ -199,7 +130,7 @@ function frame(){ //when a frame is updated
     var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
     // Define a speed at which the monster follows the character
-    var monsterSpeed = 2;
+    var monsterSpeed = 3;
 
     if (distance > monsterSpeed) {
         var angle = Math.atan2(deltaY, deltaX);
@@ -208,19 +139,33 @@ function frame(){ //when a frame is updated
         monsterObject.OverridePosition([newX, newY]);
     }
 
-     // Check for overlap between the character and the monster
-    if (checkForOverlap(myCharacterObject, monsterObject)) {
-        isCharacterAlive = false;
-        showCharacter = false;
-    }
-
-    //console.log(pos)
+    console.log(pos)
 
     //draw frame
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500); 
 
+    //draw windows
+    windowObject1.draw(ctx,[0,0]);
+    windowObject2.draw(ctx,[0,0]);
+    windowObject3.draw(ctx,[0,0]);
+    windowObject4.draw(ctx,[0,0]);
+    windowObject5.draw(ctx,[0,0]);
+
+    //draw background second
+    backgroundObject.draw(ctx,[0,0]);
+
+     //draw elevator
+    elevatorObject.draw(ctx,[0,0]);
+
+      //draw monster 
+    monsterObject.draw(ctx,[0,0]);
+
+    //draw character 
+    myCharacterObject.draw(ctx,[0,0]);
+
     //console.log(pos)
+
     if(pos[0]>=-64 && pos[0]<1008){
     myCharacterObject.OverridePosition(pos); //update character position
     if(myCharacter.movingX == true){ //if charavter is moving then animate
@@ -241,50 +186,13 @@ function frame(){ //when a frame is updated
     if (pos[0]>=0 && pos[0]<576){
     display.OverrideScroll([-pos[0],0]); //scroll everything
     }
-    
-    if (checkForOverlap(myCharacterObject, monsterObject)) {
-        console.log("test");
-    }
-    if (checkForOverlap(myCharacterObject, monsterObject) || checkForOverlap(myCharacterObject, monsterObject)) {
-    console.log("test");
-    showdeathObject = true;
-    }
-
-    //console.log("fired")
 
     display.draw(1); //type 1 = with camera offset, type 2 = without camera offset
 
-    // Draw the character or death sprite based on isCharacterAlive
-    if (isCharacterAlive && showCharacter) {
-    } else if (!deathAnimationTriggered){
-        // Draw the "deathsprite.png" in the character's position
-        var characterPosition = myCharacterObject.ReturnPosition();
-        deathObject.OverridePosition([characterPosition[0] + 23, characterPosition[1]]); // Adjust the position
-        deathObject.UpdateFrame();
-        fadeObject.UpdateFrame();
-        display.draw(1); // Draw the death sprite
-        deathAnimationTriggered = true; //mark death animation as triggered
-    }
-
     canvas.getContext("2d").drawImage(hiddenCanvas,0,0); //draw shadows overtop
 
-    // Drawing the death sprite
-    if (showdeathObject) {
-        if (currentFrame % Math.round(fps/8)==0){
-        deathObject.UpdateFrame()
-        fadeObject.UpdateFrame()
-        }
-    }
-    //draw the death fade
-    if (showdeathObject) {
-        if (currentFrame % Math.round(fps/18)==0){
-        fadeObject.UpdateFrame()
-        }
-    }
     //run function again
-    setTimeout(function() {
-        if(active==true){
-            animId = requestAnimationFrame(frame)};}, 1000 / fps);
+    setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);
 }
 
 //canvas.addEventListener("mousemove", function(e){
@@ -295,10 +203,8 @@ function frame(){ //when a frame is updated
  let isCanvasCodeInitialized = false;
 // Add a click event listener to the button
 startButton.addEventListener("click", function () {
-    if (!isCanvasCodeInitialized) { // Run the canvas code only when the button is clicked
-        // Reset the variables
-        isCharacterAlive = true;
-        showCharacter = true;
+    if (!isCanvasCodeInitialized) {
+        // Run the canvas code only when the button is clicked
         audio.play();
         frame();
         isCanvasCodeInitialized = true;
