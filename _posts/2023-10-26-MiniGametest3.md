@@ -229,7 +229,7 @@ function frame(){ //when a frame is updated
     }
 
      // Check for overlap between the character and the monster
-    if (checkForOverlap(myCharacterObject, monsterObject)) {
+    if (checkForOverlap(myCharacterObject, monsterObject)||checkForOverlap(monsterObject, myCharacterObject)) {
         isCharacterAlive = false;
         showCharacter = false;
         active = false;
@@ -252,6 +252,9 @@ function frame(){ //when a frame is updated
         myCharacterObject.UpdateFrame()
         }
     }
+    if(pos[0]>=-68 && pos[0]<828){
+    display.OverrideScroll([-pos[0] +canvas.width/2,0]); 
+    }
     }
     else{
         if(pos[0]<-64){
@@ -262,10 +265,6 @@ function frame(){ //when a frame is updated
         }
     }
 
-    if (pos[0]>=0 && pos[0]<576){
-    display.OverrideScroll([-pos[0],0]); //scroll everything
-    }
-    
 
     //console.log("fired")
 
