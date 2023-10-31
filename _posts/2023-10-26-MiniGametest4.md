@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame Testing 3
+title: Minigame Testing 4
 description: Adding interactivity and monster to minigame
 type: hacks
 courses: {'compsci': {'week': 6}}
@@ -78,13 +78,49 @@ var characterYSpeed = 0; // Vertical speed of the character
         elevatorSpriteSheet.src = "/Group/images/Game/elevator-sprite.png"
         var elevatorObject = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[948,203],11,1);
 
-        //
+        ////EKey
+        var EkeyImage = new Image ();
+        EkeyImage.src = "/Group/images/Game/EKeySprite.png"
+        var Ekey= new Object ("Ekey" ,EkeyImage, [400,354],[80,100],[190,300],2,1);
+        var showEKeySprite = false;
+        // Add the "E" key press event listener to handle the interaction with boxObject2
+        window.addEventListener('keydown', function (e) {
+         // Check if the pressed key is "E" (key code 69)
+        if (e.keyCode == 69) {
+        // Check if the player character is in contact with boxObject2
+        if (checkForOverlap(myCharacterObject, elevatorObject)) {
+            // Play sprite
+            elevatorObject.UpdateFrame();
+             }
+         }
+    });
 
     //text
 
+// New Function to Check Overlap
+function checkForOverlap(object1, object2){
+    var pos1 = object1.ReturnPosition().slice();
+    var scale1 = object1.ReturnScale().slice();   
+    var xRange1 = [pos1[0], pos1[0] + scale1[0]];
+    var yRange1 = [pos1[1], pos1[1] + scale1[1]];
+    var pos2 = object2.ReturnPosition().slice();
+    var scale2 = object2.ReturnScale().slice();   
+    var xRange2 = [pos2[0], pos2[0] + scale2[0]];
+    var yRange2 = [pos2[1], pos2[1] + scale2[1]];
+    
+    if (
+        xRange1[0] >= xRange2[0] && xRange1[0] <= xRange2[1] &&
+        yRange1[0] >= yRange2[0] && yRange1[0] <= yRange2[1]
+    ) {
+        return true;
+    }
+    // Add other necessary conditions for overlap detection as per your game logic
+    return false;
+}
+
 var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject]);
 
-var fps = 22;
+var fps = 22;``
 var active = true;
 var animId;
 var currentFrame = 0;
@@ -100,8 +136,21 @@ function frame(){ //when a frame is updated
     windowObject4.UpdateFrame();    
     windowObject5.UpdateFrame();
     if ((currentFrame % Math.round(fps/4)) == 0){
+
     //run elevator frame
     elevatorObject.UpdateFrame();
+    }
+
+    //check for overlap
+    if (checkForOverlap(myCharacterObject, elevatorObject)) {
+        showEKeySprite = true;
+    } else {
+        showEKeySprite = false;
+    }
+
+    //Draw
+     if (showEKeySprite) {
+        Ekey.draw(ctx, [0, 0]);
     }
 
     //run monster walking animation
