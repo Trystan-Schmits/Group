@@ -87,8 +87,6 @@ var pos = myCharacter.onFrame(fps); //update frame, and get position
 This checks where the character is, and if they are too far left (if (pos[0]) < -32) then they cannot walk any further. Same for moving up past the floor line, (if (pos[1] < 240)) then they can only walk left, right, or down. [1] means y axis, [0] means x axis.  
 
 # Drawings
-![office](/Group/images/Game/officeroom4.png)
-
 ![bedroom](/Group/images/Game/room1update.png)
 
 ![rain on window](/Group/images/Game/window-rain-sprite.png)
