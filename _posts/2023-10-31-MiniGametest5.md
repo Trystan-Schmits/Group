@@ -110,19 +110,34 @@ var characterYSpeed = 0; // Vertical speed of the character
     if (e.keyCode === 69) {
         // Check for overlap with elevatorObject
         if (checkForOverlap(myCharacterObject, elevatorObject)) {
-            // switch backgrounds
-            console.log("you did it")
-            //backgroundObject = secondbackgroundImage;
-            //redraw all game objects with new background 
-
-            //hide Ekey sprite
-            showEKeySprite = false;
+            if ((currentFrame % Math.round(fps/4)) == 0){
+              //run elevator frame
+                 elevatorObject.UpdateFrame();
+                 }
+         //hide Ekey sprite
+        showEKeySprite = false;
         } else {
             // Make the E key related to elevatorObject disappear if no overlap            
             showEKeySprite = false;
         }
     }
 });
+// Function to initiate the elevator animation
+function startElevatorAnimation() {
+    const totalFrames = 11; // Adjust based on the total frames of your elevator animation
+
+    let frameCount = 0;
+    const elevatorAnimationInterval = setInterval(function () {
+        if (frameCount < totalFrames) {
+            elevatorObject.UpdateFrame(); // Update elevator frame
+            display.draw(1); // Draw the updated frame on the canvas
+            frameCount++;
+        } else {
+            clearInterval(elevatorAnimationInterval); // Stop the animation loop when done
+        }
+    }, 1000 / fps); // Adjust the timing based on your frame rate (fps)
+}
+
 
     //text
 
@@ -214,10 +229,7 @@ function frame(){ //when a frame is updated
     windowObject3.UpdateFrame();    
     windowObject4.UpdateFrame();    
     windowObject5.UpdateFrame();
-    if ((currentFrame % Math.round(fps/4)) == 0){
-    //run elevator frame
-    elevatorObject.UpdateFrame();
-    }
+
 
     //run monster walking animation
     monsterObject.UpdateFrame();
