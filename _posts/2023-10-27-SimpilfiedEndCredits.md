@@ -42,7 +42,7 @@ categories: ['C4.1']
         ctx.fillText(text,xOffset,scrollY-yOffset); //draw text at middle, and draw y with scroll and offset
     };
     function addText() { //Text,Offset
-        text("Created By", -400);
+        text("Created By", 400);
         text("Sean Nakagawa", -450);
         text("Trystan Schmits", -500);
         text("Zafeer Ahmed", -550);
