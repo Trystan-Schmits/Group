@@ -138,4 +138,12 @@ In the minigame, the monster will follow you and if it gets too close it will ki
 
 ![man walking](/Group/images/Game/walking-sprite.png)
 
-![squid ambient](/Group/images/Game/squidambient-sprite.png)
+![man dying](/Group/images/Game/deathsprite.png)
+
+![squid ambient](/Group/images/Game/Squid(3).png)
+
+![minigameroom1](/Group/images/Game/officeroom4.png)
+
+![minigameroom2](/Group/images/Game/minigameroom2.png)
+
+![elevator sprite](/Group/images/Game/elevatorsprite.png)

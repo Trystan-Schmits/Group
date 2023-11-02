@@ -97,7 +97,8 @@ var characterYSpeed = 0; // Vertical speed of the character
         //elevator 
         var elevatorSpriteSheet = new Image();
         elevatorSpriteSheet.src = "/Group/images/Game/elevator-sprite.png"
-        var elevatorObject = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[948,203],11,1);
+        var elevator1Object = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[948,203],11,1);
+        var elevator2Object = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[50,203],11,1);
 
     //eKey
         var EkeyImage = new Image ();
@@ -109,10 +110,10 @@ var characterYSpeed = 0; // Vertical speed of the character
         window.addEventListener('keydown', function (e) {
     if (e.keyCode === 69) {
         // Check for overlap with elevatorObject
-        if (checkForOverlap(myCharacterObject, elevatorObject)) {
+        if (checkForOverlap(myCharacterObject, elevator1Object)) {
             if ((currentFrame % Math.round(fps/4)) == 0){
               //run elevator frame
-                 elevatorObject.UpdateFrame();
+                 elevator1Object.UpdateFrame();
                  }
          //hide Ekey sprite
         showEKeySprite = false;
@@ -133,30 +134,30 @@ function drawHoldEKeyMessage() {
 
 // Modify the event listener to start checking for overlap on page load
 window.addEventListener('load', function () {
-    checkForElevatorOverlap(); // Start checking for overlap
+    checkForElevator1Overlap(); // Start checking for overlap
 });
 
 // Add the functionality to continuously check for overlap and show the message
 function checkForElevatorOverlap() {
-    if (checkForOverlap(myCharacterObject, elevatorObject)) {
+    if (checkForOverlap(myCharacterObject, elevator1Object)) {
         // Draw the "Hold the EKey" message if there is an overlap
         drawHoldEKeyMessage();
     }
-    requestAnimationFrame(checkForElevatorOverlap);
+    requestAnimationFrame(checkForElevator1Overlap);
 }
 
 // Function to initiate the elevator animation
-function startElevatorAnimation() {
+function startElevator1Animation() {
     const totalFrames = 11; // Adjust based on the total frames of your elevator animation
 
     let frameCount = 0;
-    const elevatorAnimationInterval = setInterval(function () {
+    const elevator1AnimationInterval = setInterval(function () {
         if (frameCount < totalFrames) {
-            elevatorObject.UpdateFrame(); // Update elevator frame
+            elevator1Object.UpdateFrame(); // Update elevator frame
             display.draw(1); // Draw the updated frame on the canvas
             frameCount++;
         } else {
-            clearInterval(elevatorAnimationInterval); // Stop the animation loop when done
+            clearInterval(elevator1AnimationInterval); // Stop the animation loop when done
         }
     }, 1000 / fps); // Adjust the timing based on your frame rate (fps)
 }
@@ -164,7 +165,7 @@ function startElevatorAnimation() {
 
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject,fadeObject,deathObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevator1Object,elevator2Object,myCharacterObject,monsterObject,fadeObject,deathObject]);
 
 var fps = 22;
 var active = true;
@@ -295,11 +296,11 @@ function frame(){ //when a frame is updated
         showCharacter = false;
         active = false;
         animationFrame = 0;
-        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,monsterObject,fadeObject,deathObject]
+        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevator1Object,elevator2Object,monsterObject,fadeObject,deathObject]
         deathAnimation();
     }
     // check for overlap between character and elevator 
-    if (checkForOverlap(myCharacterObject, elevatorObject)) {
+    if (checkForOverlap(myCharacterObject, elevator1Object)) {
     console.log("Now press the E key");
     showEKeySprite = true;
     }
