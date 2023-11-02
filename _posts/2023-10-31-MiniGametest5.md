@@ -289,7 +289,7 @@ function frame(){ //when a frame is updated
         monsterObject.OverridePosition([newX, newY]);
     }
 
-     // Check for overlap between the character and the monster
+    // Check for overlap between the character and the monster
     if (checkForOverlap(myCharacterObject, monsterObject)||checkForOverlap(monsterObject, myCharacterObject)) {
         isCharacterAlive = false;
         showCharacter = false;
