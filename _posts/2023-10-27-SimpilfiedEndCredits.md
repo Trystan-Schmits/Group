@@ -42,13 +42,11 @@ categories: ['C4.1']
         ctx.fillText(text,xOffset,scrollY-yOffset); //draw text at middle, and draw y with scroll and offset
     };
     function addText() { //Text,Offset
-<<<<<<< HEAD
         text("Created By", 400);
         text("Sean Nakagawa", -450);
         text("Trystan Schmits", -500);
         text("Zafeer Ahmed", -550);
         text("Spencer Lyons", -600);
-=======
         text("Created By", 0);
         text("Sean Nakagawa", 50,{font:"18px Arial",fillStyle:"red"});
         var gradient = ctx.createLinearGradient(0,0,canvas.width,canvas.height); //create a gradient starting top left, ending bottom right
@@ -64,7 +62,6 @@ categories: ['C4.1']
         gradient2.addColorStop(.75, "white"); //add colors
         gradient2.addColorStop(.25,"black");
         text("Spencer Lyons", 200,{font:"16px Arial",fillStyle:gradient2});
->>>>>>> 524d382dfb0e2ef2202e5a33b6859c743b27830d
     };
     var fps = 24;
     function update() {
