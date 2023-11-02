@@ -69,7 +69,7 @@ var characterYSpeed = 0; // Vertical speed of the character
     //Squid monster
     var monsterSpriteSheet = new Image();
     monsterSpriteSheet.src = "/Group/images/Game/Squid(3).png";
-    var monsterObject = new Object("Squid", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,250],4,1);
+    var monsterObject = new Object("Squid", monsterSpriteSheet,[170, 175],[130, 135],[100,250],4,1);
     monsterObject.UpdateFrame();
 
     //backgrounds
@@ -91,7 +91,7 @@ var characterYSpeed = 0; // Vertical speed of the character
 
         //office background
         var backgroundImage = new Image();
-        backgroundImage.src = "/Group/images/Game/officeroom4.png";
+        backgroundImage.src = "/Group/images/Game/minigameroom2.png";
         var backgroundObject = new Object("background",backgroundImage,[394,175],[1078,500],[0,500],1,1,[0,0]);
 
         //elevator 
