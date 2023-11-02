@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame Testing 5
+title: Minigame Testing 6
 description: Add working elevator to second floor with interactivity
 type: hacks
 courses: {'compsci': {'week': 6}}
@@ -18,11 +18,6 @@ categories: ['C4.1']
 <button id="startButton">Start</button>
 <canvas id="display" class="container" height="500px" width="500px"></canvas>
 <audio id="audio" src="/Group/audio/rainonwindow.mp3" preload="auto" loop="true"></audio>
-
-<button id="startButton">Start</button>
-<canvas id="display" class="container" height="500px" width="500px"></canvas>
-<audio id="audio" src="/Group/audio/spider-squeek-85399.mp3" preload="auto" loop="true"></audio>
-
 
 <script type="module">
 //import needed modules
@@ -71,10 +66,10 @@ var characterYSpeed = 0; // Vertical speed of the character
         fadeSpriteSheet.src = "/Group/images/Game/deathscreenfade-sprite.png";
         var fadeObject = new Object("fade",fadeSpriteSheet,[100,100],[1078,500],[0,500],50,1);
 
-    //potato monster
+    //Squid monster
     var monsterSpriteSheet = new Image();
-    monsterSpriteSheet.src = "/Group/images/Game/potatowalking-sprite.png";
-    var monsterObject = new Object("potato", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,250],4,1);
+    monsterSpriteSheet.src = "/Group/images/Game/Squid(3).png";
+    var monsterObject = new Object("Squid", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,250],4,1);
     monsterObject.UpdateFrame();
 
     //backgrounds
