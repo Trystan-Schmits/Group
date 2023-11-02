@@ -19,11 +19,6 @@ categories: ['C4.1']
 <canvas id="display" class="container" height="500px" width="500px"></canvas>
 <audio id="audio" src="/Group/audio/rainonwindow.mp3" preload="auto" loop="true"></audio>
 
-<button id="startButton">Start</button>
-<canvas id="display" class="container" height="500px" width="500px"></canvas>
-<audio id="audio" src="/Group/audio/spider-squeek-85399.mp3" preload="auto" loop="true"></audio>
-
-
 <script type="module">
 //import needed modules
 import Character from "/Group/myScripts/GameScripts/MinigameCharacterMovement.js";
