@@ -1,8 +1,8 @@
 ---
 comments: False
 layout: post
-title: Minigame Testing 3
-description: Adding interactivity and monster to minigame
+title: Minigame Testing 5
+description: Add working elevator to second floor with interactivity
 type: hacks
 courses: {'compsci': {'week': 6}}
 categories: ['C4.1']
@@ -13,9 +13,10 @@ categories: ['C4.1']
         display:block;
         background-color:white;
     }
+    
 </style>
-<canvas id="display" class="container" height="500px" width="500px"></canvas>
 <button id="startButton">Start</button>
+<canvas id="display" class="container" height="500px" width="500px"></canvas>
 <audio id="audio" src="/Group/audio/rainonwindow.mp3" preload="auto" loop="true"></audio>
 
 <script type="module">
@@ -80,6 +81,8 @@ var characterYSpeed = 0; // Vertical speed of the character
         var windowObject3 = new Object("window", windowSpriteSheet,[100,100],[164,180],[385,174],22,1);
         var windowObject4 = new Object("window", windowSpriteSheet,[100,100],[164,180],[566,174],22,1);
         var windowObject5 = new Object("window", windowSpriteSheet,[100,100],[164,180],[747,174],22,1);
+        
+        //offset window starting frames 
         windowObject1.UpdateFrame(1);
         windowObject2.UpdateFrame(4);
         windowObject3.UpdateFrame(7);
@@ -96,7 +99,45 @@ var characterYSpeed = 0; // Vertical speed of the character
         elevatorSpriteSheet.src = "/Group/images/Game/elevator-sprite.png"
         var elevatorObject = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[948,203],11,1);
 
-        //
+    //eKey
+        var EkeyImage = new Image ();
+        EkeyImage.src = "/Group/images/Game/EKeySprite.png"
+        var Ekey= new Object ("Ekey" ,EkeyImage, [400,354],[80,100],[190,300],2,1);
+        var showEKeySprite = false;
+
+        // Add the "E" key press event listener to handle the interaction with elevatorObject
+        window.addEventListener('keydown', function (e) {
+    if (e.keyCode === 69) {
+        // Check for overlap with elevatorObject
+        if (checkForOverlap(myCharacterObject, elevatorObject)) {
+            if ((currentFrame % Math.round(fps/4)) == 0){
+              //run elevator frame
+                 elevatorObject.UpdateFrame();
+                 }
+         //hide Ekey sprite
+        showEKeySprite = false;
+        } else {
+            // Make the E key related to elevatorObject disappear if no overlap            
+            showEKeySprite = false;
+        }
+    }
+});
+// Function to initiate the elevator animation
+function startElevatorAnimation() {
+    const totalFrames = 11; // Adjust based on the total frames of your elevator animation
+
+    let frameCount = 0;
+    const elevatorAnimationInterval = setInterval(function () {
+        if (frameCount < totalFrames) {
+            elevatorObject.UpdateFrame(); // Update elevator frame
+            display.draw(1); // Draw the updated frame on the canvas
+            frameCount++;
+        } else {
+            clearInterval(elevatorAnimationInterval); // Stop the animation loop when done
+        }
+    }, 1000 / fps); // Adjust the timing based on your frame rate (fps)
+}
+
 
     //text
 
@@ -188,10 +229,7 @@ function frame(){ //when a frame is updated
     windowObject3.UpdateFrame();    
     windowObject4.UpdateFrame();    
     windowObject5.UpdateFrame();
-    if ((currentFrame % Math.round(fps/4)) == 0){
-    //run elevator frame
-    elevatorObject.UpdateFrame();
-    }
+
 
     //run monster walking animation
     monsterObject.UpdateFrame();
@@ -237,8 +275,13 @@ function frame(){ //when a frame is updated
         display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,monsterObject,fadeObject,deathObject]
         deathAnimation();
     }
+    // check for overlap between character and elevator 
+    if (checkForOverlap(myCharacterObject, elevatorObject)) {
+    console.log("Now press the E key");
+    showEKeySprite = true;
+    }
 
-    console.log(pos)
+    //console.log(pos)
 
     //draw frame
     var ctx = canvas.getContext("2d");
@@ -271,6 +314,15 @@ function frame(){ //when a frame is updated
     display.draw(1); //type 1 = with camera offset, type 2 = without camera offset
 
     canvas.getContext("2d").drawImage(hiddenCanvas,0,0); //draw shadows overtop
+
+    // Drawing the EKey sprite
+    if (showEKeySprite) {
+        if (currentFrame % Math.round(fps/2)==0){
+        Ekey.UpdateFrame()
+        }
+
+        Ekey.draw(canvas.getContext("2d"),[0,0]); // Draw the EKey sprite with camera offset
+    }
 
     //run function again
     setTimeout(function() {if(active==true){animId = requestAnimationFrame(frame)};}, 1000 / fps);

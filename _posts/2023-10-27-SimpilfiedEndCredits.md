@@ -42,17 +42,35 @@ categories: ['C4.1']
         ctx.fillText(text,xOffset,scrollY-yOffset); //draw text at middle, and draw y with scroll and offset
     };
     function addText() { //Text,Offset
+<<<<<<< HEAD
         text("Created By", 400);
         text("Sean Nakagawa", -450);
         text("Trystan Schmits", -500);
         text("Zafeer Ahmed", -550);
         text("Spencer Lyons", -600);
+=======
+        text("Created By", 0);
+        text("Sean Nakagawa", 50,{font:"18px Arial",fillStyle:"red"});
+        var gradient = ctx.createLinearGradient(0,0,canvas.width,canvas.height); //create a gradient starting top left, ending bottom right
+        gradient.addColorStop(0.25,"blue"); //add colors
+        gradient.addColorStop(.5,"white");
+        gradient.addColorStop(.75,"blue");
+        text("Trystan Schmits", 100, {font:"700 24px cursive",fillStyle:gradient});
+        var gradient3 = ctx.createLinearGradient(0,0,0,canvas.height); //create a gradient starting top left, ending bottom right
+        gradient3.addColorStop(.75, "green"); //add colors
+        gradient3.addColorStop(.25,"#66FF99");
+        text("Zafeer Ahmed", 150,{font:"bold 20px cursive",fillStyle:gradient3});
+        var gradient2 = ctx.createLinearGradient(0,0,0,canvas.height); //create a gradient starting top left, ending bottom right
+        gradient2.addColorStop(.75, "white"); //add colors
+        gradient2.addColorStop(.25,"black");
+        text("Spencer Lyons", 200,{font:"16px Arial",fillStyle:gradient2});
+>>>>>>> 524d382dfb0e2ef2202e5a33b6859c743b27830d
     };
     var fps = 24;
     function update() {
         ctx.clearRect(0,0,canvas.width,canvas.height);
         addText();
-        scrollY -= 1;
+        scrollY += 1;
         setTimeout(requestAnimationFrame(update),1000/(fps));
     };
     startButton.addEventListener("click", function() {
