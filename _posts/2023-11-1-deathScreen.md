@@ -12,7 +12,6 @@ categories: ['C4.1']
     .container {
         display: block;
         background-color: black;
-
     }
 </style>
 <canvas id="deathScreen" class="container" width="500px" height="400px"></canvas>
