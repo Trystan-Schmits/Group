@@ -61,6 +61,11 @@ var characterYSpeed = 0; // Vertical speed of the character
         var deathObject = new Object("death", deathSpriteSheet, [24,54],[54,133],[0,1500],23,1);
         var showdeathObject = false;
 
+        //Death Screen
+        var deathScreen = new Image ();
+        deathScreen.src = "/Group/images/Game/Death(1).png";
+        var DeathScreenObject = new Object ("Death Screen Object", DeathScreenObject, [2000, 250],[54,133],[0,1500],8,1)
+
         //character death fade 
         var fadeSpriteSheet = new Image();
         fadeSpriteSheet.src = "/Group/images/Game/deathscreenfade-sprite.png";
@@ -164,7 +169,7 @@ function startElevatorAnimation() {
 
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject,fadeObject,deathObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject,fadeObject,deathObject,DeathScreenObject]);
 
 var fps = 22;
 var active = true;
@@ -231,6 +236,8 @@ function deathAnimation(){
         }
     //draw the death fade
         fadeObject.UpdateFrame()
+    //Draw death screen
+        DeathScreenObject.UpdateFrame()
 
  var characterPosition = myCharacterObject.ReturnPosition();
         deathObject.OverridePosition([characterPosition[0] + 23, characterPosition[1]]); // Adjust the position
@@ -295,7 +302,7 @@ function frame(){ //when a frame is updated
         showCharacter = false;
         active = false;
         animationFrame = 0;
-        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,monsterObject,fadeObject,deathObject]
+        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,monsterObject,fadeObject,deathObject,DeathScreenObject]
         deathAnimation();
     }
     // check for overlap between character and elevator 
