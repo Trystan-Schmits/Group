@@ -268,7 +268,7 @@ function update(){
 var myMovement = new Movement();
 document.addEventListener("keydown",function(event){myMovement.handleKeydown(event); update()});
 document.addEventListener("keyup",function(event){myMovement.handleKeyup(event); update()});
-window.addEventListener("load",setInterval(function(){myMovement.onFrame(24)},1000/24);)
+setInterval(function(){myMovement.onFrame(24)},1000/24);
 
 </script>
 
