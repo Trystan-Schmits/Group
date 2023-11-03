@@ -58,7 +58,7 @@ I did a lot of code. I made most of the classes and functions (objects) that we 
 <script type="module">
     import Object from "/Group/myScripts/GameScripts/CreateObject.js";
     var SquidSprite = new Image();
-    SquidSprite.src = "/Group/images/Game/squidambient-sprite.png";
+    SquidSprite.src = "/Group/images/Game/squid.png";
     var squidObject = new Object("character", SquidSprite ,[190,175],[90,90],[5,95],4,1);
     var currentFrame = 0;
     var ctx = document.getElementById("drawOnMe").getContext("2d");
@@ -269,6 +269,7 @@ var myMovement = new Movement();
 document.addEventListener("keydown",function(event){myMovement.handleKeydown(event); update()});
 document.addEventListener("keyup",function(event){myMovement.handleKeyup(event); update()});
 setInterval(function(){myMovement.onFrame(24)},1000/24);
+
 </script>
 
 <p><br /></p>
@@ -456,7 +457,7 @@ var myCharacter = new Controller();
 document.addEventListener("keydown",myCharacter.handleKeydown.bind(myCharacter));
 document.addEventListener("keyup",myCharacter.handleKeyup.bind(myCharacter));
 var characterSpriteSheet = new Image();
-characterSpriteSheet.src = "/Group/images/Game/squidambient-sprite.png";
+characterSpriteSheet.src = "/Group/images/Game/squid.png";
 var myCharacterObject = new Object("character", characterSpriteSheet,[190,175],[190,175],[250,500],4,1);
 var redPixelSprite = new Image();
 redPixelSprite.src = "/Group/images/Game/redPixel.png"
@@ -513,9 +514,10 @@ window.addEventListener("load",function(){
     ctx.font = "bold 80px Arial";
     ctx.fillStyle = "black";
     ctx.textAlign = "center"
-    ctx.fillText("Displays!",250,250)
+    ctx.fillText("Displays!",250,250);
+    frame(); //run frame
     }) //wait for window to load then draw static canvas
-frame(); //run frame
+
 </script>
 <br /></p>
 

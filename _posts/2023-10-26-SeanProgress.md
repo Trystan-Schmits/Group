@@ -44,7 +44,9 @@ up = "KeyW";
 down = "KeyS";
 ...
 ```
+
 This determines which keys mean what functions (move left,rigth, up, down)
+
 ```
 //handle keydowns(press key)
 ...
@@ -66,10 +68,12 @@ case this.up:
     this.movingY = false; //stop moving down
     break;
 ```
+
 Define what key does what and when. When you press the W key it move the character up, when you let go it stops, and same for "S" key. 
 This meant that gravity had to be set to 0/deleted.
 
 This ability to move up and down had the problem that the character could now walk on the wall, which we did not want. 
+
 ```
 var pos = myCharacter.onFrame(fps); //update frame, and get position
     pos = [pos.x,500-pos.y]; //fix position
@@ -84,7 +88,44 @@ var pos = myCharacter.onFrame(fps); //update frame, and get position
         pos[0] = -32;
     }
 ```
+
 This checks where the character is, and if they are too far left (if (pos[0]) < -32) then they cannot walk any further. Same for moving up past the floor line, (if (pos[1] < 240)) then they can only walk left, right, or down. [1] means y axis, [0] means x axis.  
+
+- Monster and death
+In the minigame, the monster will follow you and if it gets too close it will kill you. It follows you by tracking how far the monster is from the character and then move it closer to the character until they are overlapping. When they overlap, it uses collisions to stop drawing the character and remove him from the screen. It also stops all the other sprites from running and then will play the death animation where the character died. It will then run the death sprites and the fade to black sprites and stop when they finish. 
+
+```
+// Calculate the distance between the character and the monster
+    var characterX = pos[0];
+    var characterY = pos[1];
+    var monsterX = monsterObject.position[0];
+    var monsterY = monsterObject.position[1];
+    var deltaX = characterX - monsterX;
+    var deltaY = characterY - monsterY;
+    var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    // Define a speed at which the monster follows the character
+    var monsterSpeed = 2;
+
+    if (distance > monsterSpeed) {
+        var angle = Math.atan2(deltaY, deltaX);
+        var newX = monsterX + monsterSpeed * Math.cos(angle);
+        var newY = monsterY + monsterSpeed * Math.sin(angle);
+        monsterObject.OverridePosition([newX, newY]);
+    }
+```
+
+```
+// Check for overlap between the character and the monster
+    if (checkForOverlap(myCharacterObject, monsterObject)||checkForOverlap(monsterObject, myCharacterObject)) {
+        isCharacterAlive = false;
+        showCharacter = false;
+        active = false;
+        animationFrame = 0;
+        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,monsterObject,fadeObject,deathObject]
+        deathAnimation();
+    }
+```
 
 # Drawings
 ![bedroom](/Group/images/Game/room1update.png)
@@ -97,4 +138,12 @@ This checks where the character is, and if they are too far left (if (pos[0]) < 
 
 ![man walking](/Group/images/Game/walking-sprite.png)
 
-![squid ambient](/Group/images/Game/squidambient-sprite.png)
+![man dying](/Group/images/Game/deathsprite.png)
+
+![squid ambient](/Group/images/Game/Squid(3).png)
+
+![minigameroom1](/Group/images/Game/officeroom4.png)
+
+![minigameroom2](/Group/images/Game/minigameroom2.png)
+
+![elevator sprite](/Group/images/Game/elevatorsprite.png)

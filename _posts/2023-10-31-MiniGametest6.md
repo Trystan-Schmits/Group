@@ -1,7 +1,7 @@
 ---
 comments: False
 layout: post
-title: Minigame Testing 5
+title: Minigame Testing 6
 description: Add working elevator to second floor with interactivity
 type: hacks
 courses: {'compsci': {'week': 6}}
@@ -66,10 +66,10 @@ var characterYSpeed = 0; // Vertical speed of the character
         fadeSpriteSheet.src = "/Group/images/Game/deathscreenfade-sprite.png";
         var fadeObject = new Object("fade",fadeSpriteSheet,[100,100],[1078,500],[0,500],50,1);
 
-    //potato monster
+    //Squid monster
     var monsterSpriteSheet = new Image();
-    monsterSpriteSheet.src = "/Group/images/Game/potatowalking-sprite.png";
-    var monsterObject = new Object("potato", monsterSpriteSheet,[315, 320],[105, 106.666667],[100,250],4,1);
+    monsterSpriteSheet.src = "/Group/images/Game/Squid(3).png";
+    var monsterObject = new Object("Squid", monsterSpriteSheet,[170, 175],[130, 135],[100,250],4,1);
     monsterObject.UpdateFrame();
 
     //backgrounds
@@ -91,13 +91,14 @@ var characterYSpeed = 0; // Vertical speed of the character
 
         //office background
         var backgroundImage = new Image();
-        backgroundImage.src = "/Group/images/Game/officeroom4.png";
+        backgroundImage.src = "/Group/images/Game/minigameroom2.png";
         var backgroundObject = new Object("background",backgroundImage,[394,175],[1078,500],[0,500],1,1,[0,0]);
 
         //elevator 
         var elevatorSpriteSheet = new Image();
         elevatorSpriteSheet.src = "/Group/images/Game/elevator-sprite.png"
-        var elevatorObject = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[948,203],11,1);
+        var elevator1Object = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[948,203],11,1);
+        var elevator2Object = new Object("elevator",elevatorSpriteSheet,[58,64],[130,180],[50,203],11,1);
 
     //eKey
         var EkeyImage = new Image ();
@@ -109,10 +110,10 @@ var characterYSpeed = 0; // Vertical speed of the character
         window.addEventListener('keydown', function (e) {
     if (e.keyCode === 69) {
         // Check for overlap with elevatorObject
-        if (checkForOverlap(myCharacterObject, elevatorObject)) {
+        if (checkForOverlap(myCharacterObject, elevator1Object)) {
             if ((currentFrame % Math.round(fps/4)) == 0){
               //run elevator frame
-                 elevatorObject.UpdateFrame();
+                 elevator1Object.UpdateFrame();
                  }
          //hide Ekey sprite
         showEKeySprite = false;
@@ -133,30 +134,30 @@ function drawHoldEKeyMessage() {
 
 // Modify the event listener to start checking for overlap on page load
 window.addEventListener('load', function () {
-    checkForElevatorOverlap(); // Start checking for overlap
+    checkForElevator1Overlap(); // Start checking for overlap
 });
 
 // Add the functionality to continuously check for overlap and show the message
 function checkForElevatorOverlap() {
-    if (checkForOverlap(myCharacterObject, elevatorObject)) {
+    if (checkForOverlap(myCharacterObject, elevator1Object)) {
         // Draw the "Hold the EKey" message if there is an overlap
         drawHoldEKeyMessage();
     }
-    requestAnimationFrame(checkForElevatorOverlap);
+    requestAnimationFrame(checkForElevator1Overlap);
 }
 
 // Function to initiate the elevator animation
-function startElevatorAnimation() {
+function startElevator1Animation() {
     const totalFrames = 11; // Adjust based on the total frames of your elevator animation
 
     let frameCount = 0;
-    const elevatorAnimationInterval = setInterval(function () {
+    const elevator1AnimationInterval = setInterval(function () {
         if (frameCount < totalFrames) {
-            elevatorObject.UpdateFrame(); // Update elevator frame
+            elevator1Object.UpdateFrame(); // Update elevator frame
             display.draw(1); // Draw the updated frame on the canvas
             frameCount++;
         } else {
-            clearInterval(elevatorAnimationInterval); // Stop the animation loop when done
+            clearInterval(elevator1AnimationInterval); // Stop the animation loop when done
         }
     }, 1000 / fps); // Adjust the timing based on your frame rate (fps)
 }
@@ -164,7 +165,7 @@ function startElevatorAnimation() {
 
     //text
 
-var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,myCharacterObject,monsterObject,fadeObject,deathObject]);
+var display = new subDisplay(canvas,[windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevator1Object,elevator2Object,myCharacterObject,monsterObject,fadeObject,deathObject]);
 
 var fps = 22;
 var active = true;
@@ -289,17 +290,17 @@ function frame(){ //when a frame is updated
         monsterObject.OverridePosition([newX, newY]);
     }
 
-    // Check for overlap between the character and the monster
+     // Check for overlap between the character and the monster
     if (checkForOverlap(myCharacterObject, monsterObject)||checkForOverlap(monsterObject, myCharacterObject)) {
         isCharacterAlive = false;
         showCharacter = false;
         active = false;
         animationFrame = 0;
-        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevatorObject,monsterObject,fadeObject,deathObject]
+        display.objects = [windowObject1,windowObject2,windowObject3,windowObject4,windowObject5,backgroundObject,elevator1Object,elevator2Object,monsterObject,fadeObject,deathObject]
         deathAnimation();
     }
     // check for overlap between character and elevator 
-    if (checkForOverlap(myCharacterObject, elevatorObject)) {
+    if (checkForOverlap(myCharacterObject, elevator1Object)) {
     console.log("Now press the E key");
     showEKeySprite = true;
     }
@@ -369,3 +370,31 @@ startButton.addEventListener("click", function () {
     }
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

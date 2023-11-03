@@ -14,7 +14,7 @@ categories: ['C4.1']
         background-color: black;
     }
 </style>
-<canvas id="deathScreen" class="container" width="500px" height="400px"></canvas>
+<canvas id="deathScreen" class="container" width="500" height="400"></canvas>
 <button id="startButton">Start</button>
 <audio id="death" src="/Group/audio/death.mp3" preload="auto"></audio>
 
