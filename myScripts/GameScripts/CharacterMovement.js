@@ -50,12 +50,12 @@ class Movement{
                 this.directionX = -1;
                 this.moving = true;
                 break;
-            //case this.jump:
-            //    if (this.position.y == 0){
-            //    this.instantY = 80;
-            //    this.directionY = 1;
-            //    }
-            //    break;
+            case this.jump:
+                if (this.position.y == 0){
+                this.instantY = 80;
+                this.directionY = 1;
+                }
+                break;
         }
     }
     handleKeyup(event){
